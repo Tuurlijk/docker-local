@@ -1,0 +1,18 @@
+[mysqld]
+socket=/var/run/mysqld/mysqld.sock
+
+# Disable strict mode
+sql_mode=
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+
+join_buffer_size=1M
+
+max_allowed_packet=64M
+tmpdir=/dev/shm
+
+innodb_flush_method=nosync
+innodb_flush_log_at_trx_commit=0
+innodb_doublewrite=0
+innodb_checksums=0
