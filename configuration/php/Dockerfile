@@ -1,6 +1,8 @@
 FROM php:7.3-fpm
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y \
         graphicsmagick \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
@@ -8,6 +10,8 @@ RUN apt-get update && apt-get install -y \
         libxml2-dev \
         libzip-dev \
         rsync \
+        vim \
+        zsh \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install -j$(nproc) iconv \
@@ -19,6 +23,11 @@ RUN apt-get update && apt-get install -y \
     && yes | pecl install xdebug \
     && curl -L https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 -o mhsendmail_linux_amd64 \
     && chmod +x mhsendmail_linux_amd64 \
-    && mv mhsendmail_linux_amd64 /usr/local/bin/mhsendmail
+    && mv mhsendmail_linux_amd64 /usr/local/bin/mhsendmail \
+    && chsh root -s /bin/zsh \
+    && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+    && php -r "if (hash_file('sha384', 'composer-setup.php') === '48e3236262b34d30969dca3c37281b3b4bbe3221bda826ac6a9a62d6444cdb0dcd0615698a5cbe587c3f0fe57a54d8f5') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+    && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
+    && php -r "unlink('composer-setup.php');"
 
 # Debug in cli: Type export XDEBUG_CONFIG="idekey=PHPSTORM" in terminal session
