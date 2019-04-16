@@ -13,8 +13,11 @@ services:
     networks:
       default:
         aliases:
-          - blackfire.${WEB_HOSTNAME}
-          - xdebug.${WEB_HOSTNAME}
+          - ${COMPOSE_PROJECT_NAME}.dev.local
+          - ${COMPOSE_PROJECT_NAME}.blackfire.local
+          - ${COMPOSE_PROJECT_NAME}.bf.local
+          - ${COMPOSE_PROJECT_NAME}.xdebug.local
+          - ${COMPOSE_PROJECT_NAME}.xdbg.local
     depends_on:
       - db
       - php
