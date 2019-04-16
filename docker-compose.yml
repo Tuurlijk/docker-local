@@ -1,14 +1,20 @@
 version: "3"
 services:
   web:
-    image: nginx:alpine
+    image: fholzer/nginx-brotli
     hostname: ${WEB_HOSTNAME}
     volumes:
-      - ${CONFIGURATION_ROOT}/web/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ${CONFIGURATION_ROOT}/web/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ${CONFIGURATION_ROOT}/web/ssl:/etc/nginx/ssl:ro
       - ${PROJECT_ROOT}:/var/www/html:ro
       - typo3tempRamdisk:/var/www/html/Web/typo3temp:ro
       - typo3varRamdisk:/var/www/html/var:ro
     expose: [80]
+    networks:
+      default:
+        aliases:
+          - blackfire.${WEB_HOSTNAME}
+          - xdebug.${WEB_HOSTNAME}
     depends_on:
       - db
       - php
@@ -32,6 +38,28 @@ services:
       - typo3varRamdisk:/var/www/html/var
     depends_on:
       - before_script
+
+  blackfire_php:
+    build: ${CONFIGURATION_ROOT}/blackfire_php/
+    volumes:
+      - ${CONFIGURATION_ROOT}/blackfire_php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
+      - ${CONFIGURATION_ROOT}/blackfire_php/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
+      - ${PROJECT_ROOT}:/var/www/html
+      - typo3tempRamdisk:/var/www/html/Web/typo3temp
+      - typo3varRamdisk:/var/www/html/var
+    depends_on:
+      - before_script
+
+  blackfire:
+    image: blackfire/blackfire
+    environment:
+      - BLACKFIRE_SERVER_ID=${BLACKFIRE_SERVER_ID:-id}
+      - BLACKFIRE_SERVER_TOKEN=${BLACKFIRE_SERVER_TOKEN:-token}
+      - BLACKFIRE_CLIENT_ID=${BLACKFIRE_CLIENT_ID:-id}
+      - BLACKFIRE_CLIENT_TOKEN=${BLACKFIRE_CLIENT_TOKEN:-token}
+    depends_on:
+      - blackfire_php
+      - web
 
   before_script:
     image: busybox:latest
