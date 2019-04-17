@@ -11,6 +11,9 @@ e_header Setting up TYPO3
 e_arrow Ensuring typo3conf exists
 mkdir -p /build/Web/typo3conf/
 
+e_arrow Ensuring var exists
+mkdir -p /build/var
+
 e_arrow Populating additional typo3conf files
 cp --recursive --force /configuration/before_script/typo3conf/* /build/Web/typo3conf/
 
@@ -19,6 +22,6 @@ touch /build/Web/typo3conf/ENABLE_INSTALL_TOOL
 
 e_arrow Fixing permissions
 chmod -R ug+rwX,o+rX /build
-chown -R 1000:1000 /build/Web/typo3conf
+chown -R 1000:1000 /build/var /build/Web/typo3conf
 
 e_success All done
