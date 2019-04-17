@@ -21,6 +21,8 @@ services:
     depends_on:
       - db
       - php
+      - php_blackfire
+      - php_xdebug
 
   db:
     image: mariadb
