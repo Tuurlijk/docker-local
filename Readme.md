@@ -67,3 +67,16 @@ Any files in `/configuration/db/` ending in `tar.gz` or `gz` will be imported.
 
 ## Acessing the site by name
 Your site will be accessible on `prefix_web_1` and if you specify a hostname also on the specified hostname; `prefix.dev.local` in this case:
+
+## SSL support
+Import `configuration/web/ca/cacert.crt` into your browser. Allow it authenticate websites.
+This was generated using: https://gist.github.com/jchandra74/36d5f8d0e11960dd8f80260801109ab0
+
+The provided certificates have wildcards for:
+* *.dev.local
+* *.blackfire.local
+* *.bf.local
+* *.xdebug.local
+* *.xdbg.local
+
+This makes is possible to visit `prefix.dev.local` securely. If you want to use the blackfire php backend, you can visit `prefix.blackfire.local` or `prefix.bf.local`.
