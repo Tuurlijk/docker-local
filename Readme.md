@@ -13,6 +13,7 @@ This development environment uses as much default docker containers as possible.
 ```bash
 git clone https://github.com/Tuurlijk/docker-local.git
 cd docker-local
+cp .env.example .env
 docker-compose up
 ```
 
@@ -59,6 +60,8 @@ group = 1000
 ```
 
 This ensure that the PHP-FPM process can read and write files in your project.
+
+The `php-fpm.conf` is re-used for the xdebug and blackfire backend.
 
 The `/configuration/before_script/init.sh` takes care of setting the correct permissions on the `vendor` and `Web` directories so that the nginx process can access them.
 

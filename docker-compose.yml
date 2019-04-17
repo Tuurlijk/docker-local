@@ -42,11 +42,22 @@ services:
     depends_on:
       - before_script
 
-  blackfire_php:
-    build: ${CONFIGURATION_ROOT}/blackfire_php/
+  php_blackfire:
+    build: ${CONFIGURATION_ROOT}/php_blackfire/
     volumes:
-      - ${CONFIGURATION_ROOT}/blackfire_php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
-      - ${CONFIGURATION_ROOT}/blackfire_php/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
+      - ${CONFIGURATION_ROOT}/php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
+      - ${CONFIGURATION_ROOT}/php_blackfire/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
+      - ${PROJECT_ROOT}:/var/www/html
+      - typo3tempRamdisk:/var/www/html/Web/typo3temp
+      - typo3varRamdisk:/var/www/html/var
+    depends_on:
+      - before_script
+
+  php_xdebug:
+    build: ${CONFIGURATION_ROOT}/php_xdebug/
+    volumes:
+      - ${CONFIGURATION_ROOT}/php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
+      - ${CONFIGURATION_ROOT}/php_xdebug/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
       - ${PROJECT_ROOT}:/var/www/html
       - typo3tempRamdisk:/var/www/html/Web/typo3temp
       - typo3varRamdisk:/var/www/html/var
@@ -61,7 +72,7 @@ services:
       - BLACKFIRE_CLIENT_ID=${BLACKFIRE_CLIENT_ID:-id}
       - BLACKFIRE_CLIENT_TOKEN=${BLACKFIRE_CLIENT_TOKEN:-token}
     depends_on:
-      - blackfire_php
+      - php_blackfire
       - web
 
   before_script:
