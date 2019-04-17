@@ -82,8 +82,12 @@ The provided certificates have wildcards for:
 This makes is possible to visit `prefix.dev.local` securely. If you want to use the blackfire php backend, you can visit `prefix.blackfire.local` or `prefix.bf.local`.
 
 ## Known issues
-Mariadb creates the database with latin1 collation. You can change the collation with the following SQL query:
+Mariadb creates the database with latin1 collation. You can change the collation with the following SQL query on the db instance:
 ```sql
 ALTER DATABASE database_name_here CHARACTER SET utf8 COLLATE utf8_general_ci;
 ```
 
+From the host:
+```bash
+docker-compose exec db bash -c 'mysql -u root -psupersecret -e "ALTER DATABASE v8 CHARACTER SET utf8 COLLATE utf8_general_ci;"'
+```
