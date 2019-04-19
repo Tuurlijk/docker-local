@@ -1,3 +1,3 @@
 /.idea
-/db/dump.sql.gz
-/db/dump.sql.gz.bak
+/.config/db/database.sql
+/.config/db/database.sql.gz
