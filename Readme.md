@@ -23,7 +23,12 @@ Each container may use configuration files from the `.docker` folder.
 The environment file `/.env` defines some important variables:
 
 ### COMPOSE_PROJECT_NAME
-The prefix of the containers. Your containers will come up as: `prefix_db_1`
+The prefix of the containers. Your containers will come up as: `prefix_db_1`. The http container will be accessible on:
+* prefix.dev.local
+* prefix.xdebug.local
+* prefix.xdbg.local
+* prefix.blackfire.local
+* prefix.bf.local
 
 ### WEB_HOSTNAME
 The hostname where you can reach the website.
