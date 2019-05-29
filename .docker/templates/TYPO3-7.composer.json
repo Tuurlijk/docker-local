@@ -22,6 +22,9 @@
     "typo3/cms": {
       "web-dir": "Web",
       "cms-package-dir": "{$vendor-dir}/typo3/cms"
+    },
+    "helhum/typo3-console": {
+      "install-extension-dummy": "0"
     }
   },
   "autoload": {
