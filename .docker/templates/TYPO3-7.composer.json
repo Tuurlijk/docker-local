@@ -1,7 +1,7 @@
 {
-  "name": "michielroos/typo3-8",
+  "name": "michielroos/typo3-7",
   "type": "project",
-  "description": "TYPO3 8 site",
+  "description": "TYPO3 7 site",
   "authors": [
     {
       "name": "Michiel Roos",
@@ -9,23 +9,9 @@
     }
   ],
   "require": {
-    "helhum/typo3-console": "^5.2",
+    "helhum/typo3-console": "^4.2",
     "symfony/dotenv": "^4.1",
-    "typo3/cms-about": "^8.7",
-    "typo3/cms-belog": "^8.7",
-    "typo3/cms-core": "^8.7",
-    "typo3/cms-filemetadata": "^8.7",
-    "typo3/cms-fluid-styled-content": "^8.7",
-    "typo3/cms-form": "^8.7",
-    "typo3/cms-lowlevel": "^8.7",
-    "typo3/cms-reports": "^8.7",
-    "typo3/cms-rte-ckeditor": "^8.7",
-    "typo3/cms-setup": "^8.7",
-    "typo3/cms-sys-note": "^8.7",
-    "typo3/cms-t3editor": "^8.7",
-    "typo3/cms-tstemplate": "^8.7",
-    "typo3/minimal": "^8.7",
-    "typo3/cms-func": "^8.7"
+    "typo3/cms": "^7.6"
   },
   "config": {
     "bin-dir": "bin",
