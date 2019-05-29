@@ -58,7 +58,7 @@ You can see your uid and gid by doing `id -u` and `id -g`.
 
 On many systems these values will be `1000`. Now we need to make sure that the PHP process runs as that user and group so it can read and write files in your web directory.
 
-We do this by adding the following lines to the file `/.docker/php/php-fpm.conf`:
+We do this by adding the following lines to the file `.docker/php/php-fpm.conf`:
 ```ini
 user = 1000
 group = 1000
@@ -68,10 +68,20 @@ This ensure that the PHP-FPM process can read and write files in your project.
 
 The `php-fpm.conf` is re-used for the xdebug and blackfire backend.
 
-The `/.docker/before_script/init.sh` takes care of setting the correct permissions on the `vendor` and `Web` directories so that the nginx process can access them.
+The `.docker/before_script/init.sh` takes care of setting the correct permissions on the `vendor` and `Web` directories so that the nginx process can access them.
 
 ## Importing a database
-Any files in `/.docker/db/` ending in `tar.gz` or `gz` will be imported.
+Any files in `.docker/db/` ending in `tar.gz` or `gz` will be imported.
+
+## Dumping a database
+There is a script in `.docker/bin/` called `dump.sh`. It uses the database credentials defined in the `.env` file to dump the database from the database host. You can execute it by doing:
+```bash
+composer dd
+# Or
+composer dump-database
+# Or
+./.docker/bin/dump.sh
+```
 
 ## Acessing the site by name
 Your site will be accessible on `prefix_web_1` and if you specify a hostname also on the specified hostname; `prefix.dev.local` in this case:
