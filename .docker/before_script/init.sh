@@ -22,6 +22,5 @@ touch /build/Web/typo3conf/ENABLE_INSTALL_TOOL
 
 e_arrow Fixing permissions
 chmod -R ug+rwX,o+rX /build
-chown -R 1000:1000 /build/var /build/Web/typo3conf
-
+chown -R 1000:1000 /build
 e_success All done
