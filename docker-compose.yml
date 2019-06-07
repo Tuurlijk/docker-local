@@ -25,7 +25,7 @@ services:
       - php_xdebug
 
   db:
-    image: mariadb
+    image: mariadb:10.1
     env_file:
       - ./.env
     volumes:
