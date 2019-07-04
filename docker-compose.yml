@@ -88,6 +88,13 @@ services:
     image: mailhog/mailhog
     expose: [8025]
 
+  ngrok:
+    image: wernight/ngrok
+    env_file:
+      - ./.env
+    depends_on:
+      - web
+
   hostmap:
     image: dvdarias/docker-hoster
     volumes:

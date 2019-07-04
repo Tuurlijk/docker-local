@@ -1,4 +1,5 @@
 FROM php:7.2-fpm
+MAINTAINER "michielroos" <michiel@michielroos.com>
 
 RUN apt-get update \
     && apt-get upgrade -y \
