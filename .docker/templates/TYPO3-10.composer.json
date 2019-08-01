@@ -1,0 +1,67 @@
+{
+  "name": "michielroos/typo3-10",
+  "type": "project",
+  "description": "TYPO3 10 site",
+  "authors": [
+    {
+      "name": "Michiel Roos",
+      "email": "michiel@michielroos.com"
+    }
+  ],
+  "require": {
+    "symfony/dotenv": "^4.1",
+    "typo3/cms-about": "^10.0",
+    "typo3/cms-belog": "^10.0",
+    "typo3/cms-core": "^10.0",
+    "typo3/cms-filemetadata": "^10.0",
+    "typo3/cms-fluid-styled-content": "^10.0",
+    "typo3/cms-form": "^10.0",
+    "typo3/cms-lowlevel": "^10.0",
+    "typo3/cms-reports": "^10.0",
+    "typo3/cms-rte-ckeditor": "^10.0",
+    "typo3/cms-setup": "^10.0",
+    "typo3/cms-sys-note": "^10.0",
+    "typo3/cms-t3editor": "^10.0",
+    "typo3/cms-tstemplate": "^10.0",
+    "typo3/minimal": "^10.0"
+  },
+  "config": {
+    "bin-dir": "bin",
+    "optimize-autoloader": true,
+    "preferred-install": "dist"
+  },
+  "extra": {
+    "typo3/cms": {
+      "web-dir": "Web",
+      "cms-package-dir": "{$vendor-dir}/typo3/cms"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+    }
+  },
+  "repositories": {
+    "local": {
+      "type": "path",
+      "url": "LocalPackages/*"
+    },
+    "typo3": {
+      "type": "composer",
+      "url": "https://composer.typo3.org"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "chown -R 1000:1000 ."
+    ],
+    "ci:php:lint": "find ./ -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+    "clear-typo3-cache": "./bin/typo3cms cache:flush --files-only",
+    "cc": "@clear-typo3-cache",
+    "ci": [
+      "@ci:php:lint",
+      "@ci:dynamic"
+    ],
+    "dump-database": "./.docker/bin/dump.sh",
+    "dd": "@dump-database"
+  }
+}
