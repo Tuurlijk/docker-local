@@ -24,6 +24,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['displayErrors'] = 1;
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['fileCreateMask'] = '0664';
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['folderCreateMask'] = '0775';
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['sitename'] .= ' - local';
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '.*\.local';
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['trustedHostsPattern'] = '(.*\\.local|.*\\.eu\\.ngrok\\.io)';
 //$GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['backend']['backendFavicon'] = 'EXT:site_michiel/Resources/Public/Icon/develop.ico';
 //$GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['backend']['backendLogo'] = 'EXT:site_michiel/Resources/Public/Icon/develop.svg';
