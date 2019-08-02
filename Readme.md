@@ -81,22 +81,22 @@ Password for htaccess based authentication of the exposed website
 ### Blackfire credentials
 Use blackfire to profile your PHP code. Get the credentials from https://blackfire.io/my/settings/credentials
 
-### BLACKFIRE_CLIENT_ID
+#### BLACKFIRE_CLIENT_ID
 Client id
 
 *This option is commented out by default because you are better of setting it globally in your shell environment.*
 
-### BLACKFIRE_CLIENT_TOKEN
+#### BLACKFIRE_CLIENT_TOKEN
 Client token
 
 *This option is commented out by default because you are better of setting it globally in your shell environment.*
 
-### BLACKFIRE_SERVER_ID
+#### BLACKFIRE_SERVER_ID
 Server id
 
 *This option is commented out by default because you are better of setting it globally in your shell environment.*
 
-### BLACKFIRE_SERVER_TOKEN
+#### BLACKFIRE_SERVER_TOKEN
 Server token
 
 *This option is commented out by default because you are better of setting it globally in your shell environment.*
