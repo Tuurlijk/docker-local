@@ -1,3 +1,7 @@
 /.idea
 /.docker/db/database.sql
 /.docker/db/database.sql.gz
+/Web/*
+/vendor
+/var
+/bin
