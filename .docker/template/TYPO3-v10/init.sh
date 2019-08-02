@@ -14,12 +14,6 @@ mkdir -p /build/Web/typo3conf/
 e_arrow Ensuring var exists
 mkdir -p /build/var
 
-e_arrow Populating additional typo3conf files
-cp --recursive --force /configuration/template/TYPO3-v10/typo3conf/* /build/Web/typo3conf/
-
-e_arrow Setting up composer file
-cp --force /configuration/template/TYPO3-v10/composer.json /build/
-
 e_arrow Enabling install tool
 touch /build/Web/typo3conf/ENABLE_INSTALL_TOOL
 
@@ -27,6 +21,12 @@ if [ ! -f /build/Web/typo3conf/AdditionalConfiguration.php ]; then
   e_arrow Creating FIRST_INSTALL file
   touch /build/Web/FIRST_INSTALL
 fi
+
+e_arrow Populating additional typo3conf files
+cp --recursive --force /configuration/template/TYPO3-v10/typo3conf/* /build/Web/typo3conf/
+
+e_arrow Setting up composer file
+cp --force /configuration/template/TYPO3-v10/composer.json /build/
 
 e_arrow Fixing permissions
 chmod -R ug+rwX,o+rX /build
