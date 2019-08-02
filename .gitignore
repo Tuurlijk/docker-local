@@ -6,4 +6,3 @@
 /var
 /bin
 /.docker/web/ca/tmp/
-/.env

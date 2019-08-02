@@ -17,7 +17,6 @@ Disclaimer: This was developed and tested on Linux. Pull requests are welcome ;-
 ```bash
 git clone https://github.com/Tuurlijk/docker-local.git
 cd docker-local
-cp .env.example .env
 docker-compose up
 ```
 
@@ -48,12 +47,6 @@ Add your own templates in .docker/template/
 ### WEB_HOSTNAME
 The hostname where you can reach the website.
 
-### CONFIGURATION_ROOT
-The relative path to the configuration folder. If you copy the .env and docker-compose.yml file to your project root, you can point to this configuration folder. This way you will not pollute your project with the configuration files (besides docker-compose.yml and .env).
-
-### PROJECT_ROOT
-The path to the root of your project. The default nginx.conf expects a `Web` folder in your project root which is the website root.
-
 ### mysql database credentials
 
 #### MYSQL_DATABASE
@@ -67,6 +60,23 @@ The password of the mysql user
 
 #### MYSQL_ROOT_PASSWORD
 The password of the mysql root user
+
+### Ngrok
+Expose a local web server to the internet. Share your local development environment with others
+
+#### NGROK_AUTH
+Your token from https://dashboard.ngrok.com/auth
+
+*This option is commented out by default because you are better of setting it globally in your shell environment.*
+
+#### NGROK_PORT=prefix.dev.local:443
+Hostname and port of the exposed website
+
+#### NGROK_USERNAME
+Username for htaccess based authentication of the exposed website
+
+#### NGROK_PASSWORD
+Password for htaccess based authentication of the exposed website
 
 ### Blackfire credentials
 Use blackfire to profile your PHP code. Get the credentials from https://blackfire.io/my/settings/credentials
@@ -91,22 +101,11 @@ Server token
 
 *This option is commented out by default because you are better of setting it globally in your shell environment.*
 
-### Ngrok
-Expose a local web server to the internet. Share your local development environment with others
+### CONFIGURATION_ROOT
+The relative path to the configuration folder. If you copy the .env and docker-compose.yml file to your project root, you can point to this configuration folder. This way you will not pollute your project with the configuration files (besides docker-compose.yml and .env).
 
-#### NGROK_AUTH
-Your token from https://dashboard.ngrok.com/auth
-
-*This option is commented out by default because you are better of setting it globally in your shell environment.*
-
-#### NGROK_PORT=prefix.dev.local:443
-Hostname and port of the exposed website
-
-#### NGROK_USERNAME
-Username for htaccess based authentication of the exposed website
-
-#### NGROK_PASSWORD
-Password for htaccess based authentication of the exposed website
+### PROJECT_ROOT
+The path to the root of your project. The default nginx.conf expects a `Web` folder in your project root which is the website root. You can change the nginx configuration in `.docker/web/default.conf`
 
 ## Fixing permissions
 The most important thing here is to set up the proper permissions inside the containers so that nginx can read and php-fpm can read and write files.

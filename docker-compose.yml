@@ -4,9 +4,9 @@ services:
     image: fholzer/nginx-brotli
     hostname: ${WEB_HOSTNAME}
     volumes:
-      - ${CONFIGURATION_ROOT}/web/default.conf:/etc/nginx/conf.d/default.conf:ro
-      - ${CONFIGURATION_ROOT}/web/ssl:/etc/nginx/ssl:ro
-      - ${PROJECT_ROOT}:/var/www/html:ro
+      - ${CONFIGURATION_ROOT:-./.docker}/web/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ${CONFIGURATION_ROOT:-./.docker}/web/ssl:/etc/nginx/ssl:ro
+      - ${PROJECT_ROOT:-.}:/var/www/html:ro
       - typo3tempRamdisk:/var/www/html/Web/typo3temp:ro
       - typo3varRamdisk:/var/www/html/var:ro
     networks:
@@ -32,38 +32,38 @@ services:
     env_file:
       - ./.env
     volumes:
-      - ${CONFIGURATION_ROOT}/db:/docker-entrypoint-initdb.d/:ro
-      - ${CONFIGURATION_ROOT}/db/mysql.cnf:/etc/mysql/conf.d/zzz-custom.cnf:ro
+      - ${CONFIGURATION_ROOT:-./.docker}/db:/docker-entrypoint-initdb.d/:ro
+      - ${CONFIGURATION_ROOT:-./.docker}/db/mysql.cnf:/etc/mysql/conf.d/zzz-custom.cnf:ro
       - dbRamdisk:/var/lib/mysql
 
   php:
-    build: ${CONFIGURATION_ROOT}/php/
+    build: ${CONFIGURATION_ROOT:-./.docker}/php/
     volumes:
-      - ${CONFIGURATION_ROOT}/php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
-      - ${CONFIGURATION_ROOT}/php/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
-      - ${PROJECT_ROOT}:/var/www/html
+      - ${CONFIGURATION_ROOT:-./.docker}/php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
+      - ${CONFIGURATION_ROOT:-./.docker}/php/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
+      - ${PROJECT_ROOT:-.}:/var/www/html
       - typo3tempRamdisk:/var/www/html/Web/typo3temp
       - typo3varRamdisk:/var/www/html/var
     depends_on:
       - before_script
 
   php_blackfire:
-    build: ${CONFIGURATION_ROOT}/php_blackfire/
+    build: ${CONFIGURATION_ROOT:-./.docker}/php_blackfire/
     volumes:
-      - ${CONFIGURATION_ROOT}/php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
-      - ${CONFIGURATION_ROOT}/php_blackfire/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
-      - ${PROJECT_ROOT}:/var/www/html
+      - ${CONFIGURATION_ROOT:-./.docker}/php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
+      - ${CONFIGURATION_ROOT:-./.docker}/php_blackfire/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
+      - ${PROJECT_ROOT:-.}:/var/www/html
       - typo3tempRamdisk:/var/www/html/Web/typo3temp
       - typo3varRamdisk:/var/www/html/var
     depends_on:
       - before_script
 
   php_xdebug:
-    build: ${CONFIGURATION_ROOT}/php_xdebug/
+    build: ${CONFIGURATION_ROOT:-./.docker}/php_xdebug/
     volumes:
-      - ${CONFIGURATION_ROOT}/php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
-      - ${CONFIGURATION_ROOT}/php_xdebug/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
-      - ${PROJECT_ROOT}:/var/www/html
+      - ${CONFIGURATION_ROOT:-./.docker}/php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
+      - ${CONFIGURATION_ROOT:-./.docker}/php_xdebug/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
+      - ${PROJECT_ROOT:-.}:/var/www/html
       - typo3tempRamdisk:/var/www/html/Web/typo3temp
       - typo3varRamdisk:/var/www/html/var
     depends_on:
@@ -83,8 +83,8 @@ services:
   before_script:
     image: busybox:latest
     volumes:
-      - ${PROJECT_ROOT}:/build
-      - ${CONFIGURATION_ROOT}:/configuration
+      - ${PROJECT_ROOT:-.}:/build
+      - ${CONFIGURATION_ROOT:-./.docker}:/configuration
     entrypoint: /configuration/template/${TEMPLATE:-default}/init.sh
 
   mailhog:
