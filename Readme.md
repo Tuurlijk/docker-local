@@ -10,6 +10,8 @@ This development environment uses as much default docker containers as possible.
 * Default [ngrok](https://hub.docker.com/wernight/ngrok) container - used to share your local site with the world
 * Slightly changed php container (added graphicsmagick, rsync and some php modules) - serves up php
 
+Disclaimer: This was developed and tested on Linux. Pull requests are welcome ;-)
+
 ## Installation
 
 ```bash
