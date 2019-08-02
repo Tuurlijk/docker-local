@@ -1,13 +1,13 @@
 # docker compose setup for local development
 This development environment uses as much default docker containers as possible.
 
-* Default [nginx](https://hub.docker.com/fholzer/nginx-brotli) container - Nginx container with brotli support
+* Default [nginx](https://hub.docker.com/r/fholzer/nginx-brotli) container - Nginx container with brotli support
 * Default [mariadb](https://hub.docker.com/_/mariadb) container - serves the database
 * Default [mailhog](https://hub.docker.com/r/mailhog/mailhog) container - catches all outgoing mail and displays it
 * Default [docker-hoster](https://hub.docker.com/r/dvdarias/docker-hoster) container - makes the containers accessible by name
 * Default [busybox](https://hub.docker.com/_/busybox) container - used for initialization
-* Default [blackfire](https://hub.docker.com/blackfire/blackfire) container - used for profiling your site
-* Default [ngrok](https://hub.docker.com/wernight/ngrok) container - used to share your local site with the world
+* Default [blackfire](https://hub.docker.com/r/blackfire/blackfire) container - used for profiling your site
+* Default [ngrok](https://hub.docker.com/r/wernight/ngrok) container - used to share your local site with the world
 * Slightly changed php container (added graphicsmagick, rsync and some php modules) - serves up php
 
 Disclaimer: This was developed and tested on Linux. Pull requests are welcome ;-)
