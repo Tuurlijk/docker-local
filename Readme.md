@@ -139,7 +139,7 @@ composer dump-database
 ./.docker/bin/dump.sh
 ```
 
-## Acessing the site by name
+## Accessing the site by name
 Your site will be accessible on `prefix_web_1` and if you specify a hostname also on the specified hostname; `prefix.dev.local` in this case:
 
 ## SSL support
