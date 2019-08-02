@@ -9,15 +9,15 @@ services:
       - ${PROJECT_ROOT}:/var/www/html:ro
       - typo3tempRamdisk:/var/www/html/Web/typo3temp:ro
       - typo3varRamdisk:/var/www/html/var:ro
-    expose: [80]
     networks:
       default:
         aliases:
-          - ${COMPOSE_PROJECT_NAME}.dev.local
-          - ${COMPOSE_PROJECT_NAME}.blackfire.local
           - ${COMPOSE_PROJECT_NAME}.bf.local
-          - ${COMPOSE_PROJECT_NAME}.xdebug.local
+          - ${COMPOSE_PROJECT_NAME}.blackfire.local
+          - ${COMPOSE_PROJECT_NAME}.dev.local
+          - ${COMPOSE_PROJECT_NAME}.mail.local
           - ${COMPOSE_PROJECT_NAME}.xdbg.local
+          - ${COMPOSE_PROJECT_NAME}.xdebug.local
     depends_on:
       - db
       - php
@@ -86,7 +86,7 @@ services:
 
   mailhog:
     image: mailhog/mailhog
-    expose: [8025]
+    hostname: ${COMPOSE_PROJECT_NAME}.mailhog.local
 
   ngrok:
     image: wernight/ngrok

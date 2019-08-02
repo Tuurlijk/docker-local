@@ -25,12 +25,11 @@ Each container may use configuration files from the `.docker` folder.
 The environment file `/.env` defines some important variables:
 
 ### COMPOSE_PROJECT_NAME
-The prefix of the containers. Your containers will come up as: `prefix_db_1`. The http container will be accessible on:
-* prefix.dev.local
-* prefix.xdebug.local
-* prefix.xdbg.local
-* prefix.blackfire.local
-* prefix.bf.local
+The project name is used in the domain names of the http containers:
+* [prefix.dev.local](https://prefix.dev.local) - default PHP
+* [prefix.xdebug.local](https://prefix.xdebug.local) / [prefix.xdbg.local](https://prefix.xdbg.local) - Xdebug enabled PHP
+* [prefix.blackfire.local](https://prefix.blackfire.local) / [prefix.bf.local](https://prefix.bf.local) - Blackfire enabled PHP
+* [prefix.mail.local](https://prefix.mail.local) - Mailhog
 
 ### TEMPATE ###
 Use a template to get an installation up quickly. Each template has an init.sh file to set up the environment. This may fix permissions and copy over files like composer.json and AdditionalConfiguration.php.
