@@ -82,7 +82,7 @@ services:
     volumes:
       - ${PROJECT_ROOT}:/build
       - ${CONFIGURATION_ROOT}:/configuration
-    entrypoint: /configuration/before_script/init.sh
+    entrypoint: /configuration/before_script/${TEMPLATE:-default}/init.sh
 
   mailhog:
     image: mailhog/mailhog
