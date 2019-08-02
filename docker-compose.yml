@@ -99,7 +99,7 @@ services:
       - NGROK_REGION=${NGROK_REGION:-eu}
       - NGROK_BINDTLS=${NGROK_BINDTLS:-true}
       - NGROK_USERNAME=${NGROK_USERNAME:-nan}
-      - NGROK_PASSWORD=${NGROK_PASSWORD:-nan}
+      - NGROK_PASSWORD=${NGROK_PASSWORD:-}
     depends_on:
       - web
 
