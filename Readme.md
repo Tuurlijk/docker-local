@@ -74,20 +74,30 @@ Use blackfire to profile your PHP code. Get the credentials from https://blackfi
 ### BLACKFIRE_CLIENT_ID
 Client id
 
+*This option is commented out by default because you are better of setting it globally in your shell environment.*
+
 ### BLACKFIRE_CLIENT_TOKEN
 Client token
+
+*This option is commented out by default because you are better of setting it globally in your shell environment.*
 
 ### BLACKFIRE_SERVER_ID
 Server id
 
+*This option is commented out by default because you are better of setting it globally in your shell environment.*
+
 ### BLACKFIRE_SERVER_TOKEN
 Server token
+
+*This option is commented out by default because you are better of setting it globally in your shell environment.*
 
 ### Ngrok
 Expose a local web server to the internet. Share your local development environment with others
 
 #### NGROK_AUTH
 Your token from https://dashboard.ngrok.com/auth
+
+*This option is commented out by default because you are better of setting it globally in your shell environment.*
 
 #### NGROK_PORT=prefix.dev.local:443
 Hostname and port of the exposed website
