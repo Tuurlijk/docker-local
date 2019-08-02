@@ -1,7 +1,7 @@
 # docker compose setup for local development
 This development environment uses as much default docker containers as possible.
 
-* Default [nginx](https://hub.docker.com/fholzer/nginx-brotli) container - Nginx container with brotli support to serves web pages
+* Default [nginx](https://hub.docker.com/fholzer/nginx-brotli) container - Nginx container with brotli support
 * Default [mariadb](https://hub.docker.com/_/mariadb) container - serves the database
 * Default [mailhog](https://hub.docker.com/r/mailhog/mailhog) container - catches all outgoing mail and displays it
 * Default [docker-hoster](https://hub.docker.com/r/dvdarias/docker-hoster) container - makes the containers accessible by name
