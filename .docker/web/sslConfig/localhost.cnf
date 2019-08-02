@@ -1,0 +1,35 @@
+#
+# localhost.cnf
+#
+
+[ req ]
+prompt = no
+distinguished_name = server_distinguished_name
+req_extensions = v3_req
+input_password = supersecret
+output_password = supersecret
+
+[ server_distinguished_name ]
+commonName = localhost
+stateOrProvinceName = NB
+countryName = NL
+emailAddress = michiel@michielroos.com
+organizationName = Michiel Roos
+organizationalUnitName = Development
+
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.0 = dev.local
+DNS.1 = *.dev.local
+DNS.2 = *.xdebug.local
+DNS.3 = *.xdbg.local
+DNS.4 = *.blackfire.local
+DNS.5 = *.black.local
+DNS.6 = *.fire.local
+DNS.7 = *.debug.local
+DNS.8 = *.mail.local
+DNS.9 = *.mailhog.local

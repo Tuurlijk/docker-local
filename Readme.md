@@ -29,8 +29,8 @@ The environment file `/.env` defines some important variables:
 ### COMPOSE_PROJECT_NAME
 The project name is used in the domain names of the http containers:
 * [prefix.dev.local](https://prefix.dev.local) - default PHP
-* [prefix.xdebug.local](https://prefix.xdebug.local) / [prefix.xdbg.local](https://prefix.xdbg.local) - Xdebug enabled PHP
-* [prefix.blackfire.local](https://prefix.blackfire.local) / [prefix.bf.local](https://prefix.bf.local) - Blackfire enabled PHP
+* [prefix.xdebug.local](https://prefix.xdebug.local) / [prefix.debug.local](https://prefix.debug.local) / [prefix.xdbg.local](https://prefix.xdbg.local) - Xdebug enabled PHP
+* [prefix.blackfire.local](https://prefix.blackfire.local) / [prefix.bf.local](https://prefix.bf.local) / [prefix.fire.local](https://prefix.fire.local) / [prefix.black.local](https://prefix.black.local) - Blackfire enabled PHP
 * [prefix.mail.local](https://prefix.mail.local) - Mailhog
 
 ### TEMPATE ###
@@ -54,17 +54,34 @@ The relative path to the configuration folder. If you copy the .env and docker-c
 ### PROJECT_ROOT
 The path to the root of your project. The default nginx.conf expects a `Web` folder in your project root which is the website root.
 
-### MYSQL_DATABASE
+### mysql database credentials
+
+#### MYSQL_DATABASE
 The name of the database that mysql will import the dump into
 
-### MYSQL_USER
+#### MYSQL_USER
 The name of the mysql user
 
-### MYSQL_PASSWORD
+#### MYSQL_PASSWORD
 The password of the mysql user
 
-### MYSQL_ROOT_PASSWORD
+#### MYSQL_ROOT_PASSWORD
 The password of the mysql root user
+
+### Ngrok
+Expose a local web server to the internet. Share your local development environment with others
+
+#### NGROK_AUTH
+Your token from https://dashboard.ngrok.com/auth
+
+#### NGROK_PORT=prefix.dev.local:443
+Hostname and port of the exposed website
+
+#### NGROK_USERNAME
+Username for htaccess based authentication of the exposed website
+
+#### NGROK_PASSWORD
+Password for htaccess based authentication of the exposed website
 
 ## Fixing permissions
 The most important thing here is to set up the proper permissions inside the containers so that nginx can read and php-fpm can read and write files.
@@ -108,8 +125,11 @@ This was generated using: https://gist.github.com/jchandra74/36d5f8d0e11960dd8f8
 The provided certificates have wildcards for:
 * *.dev.local
 * *.blackfire.local
+* *.black.local
+* *.fire.local
 * *.bf.local
 * *.xdebug.local
+* *.debug.local
 * *.xdbg.local
 
 This makes is possible to visit `prefix.dev.local` securely. If you want to use the blackfire php backend, you can visit `prefix.blackfire.local` or `prefix.bf.local`.

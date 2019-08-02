@@ -1,4 +1,5 @@
 #!/bin/bash
+# Dump the database and place it in .docker/db so it can be imported on the next run
 
 # Echo functions
 function e_header()  { echo -e "\n\033[1m$@\033[0m"; }

@@ -13,8 +13,11 @@ services:
       default:
         aliases:
           - ${COMPOSE_PROJECT_NAME}.bf.local
+          - ${COMPOSE_PROJECT_NAME}.black.local
           - ${COMPOSE_PROJECT_NAME}.blackfire.local
+          - ${COMPOSE_PROJECT_NAME}.debug.local
           - ${COMPOSE_PROJECT_NAME}.dev.local
+          - ${COMPOSE_PROJECT_NAME}.fire.local
           - ${COMPOSE_PROJECT_NAME}.mail.local
           - ${COMPOSE_PROJECT_NAME}.xdbg.local
           - ${COMPOSE_PROJECT_NAME}.xdebug.local
@@ -90,8 +93,13 @@ services:
 
   ngrok:
     image: wernight/ngrok
-    env_file:
-      - ./.env
+    environment:
+      - NGROK_AUTH=${NGROK_AUTH:-nan}
+      - NGROK_PORT=${NGROK_PORT:-nan}
+      - NGROK_REGION=${NGROK_REGION:-eu}
+      - NGROK_BINDTLS=${NGROK_BINDTLS:-true}
+      - NGROK_USERNAME=${NGROK_USERNAME:-nan}
+      - NGROK_PASSWORD=${NGROK_PASSWORD:-nan}
     depends_on:
       - web
 
