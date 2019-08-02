@@ -71,17 +71,17 @@ The password of the mysql root user
 ### Blackfire credentials
 Use blackfire to profile your PHP code. Get the credentials from https://blackfire.io/my/settings/credentials
 
-### BLACKFIRE_SERVER_ID
-Server id
-
-### BLACKFIRE_SERVER_TOKEN
-Server token
-
 ### BLACKFIRE_CLIENT_ID
 Client id
 
 ### BLACKFIRE_CLIENT_TOKEN
 Client token
+
+### BLACKFIRE_SERVER_ID
+Server id
+
+### BLACKFIRE_SERVER_TOKEN
+Server token
 
 ### Ngrok
 Expose a local web server to the internet. Share your local development environment with others
