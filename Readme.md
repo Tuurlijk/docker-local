@@ -126,6 +126,8 @@ The `php-fpm.conf` is re-used for the xdebug and blackfire backend.
 
 The `.docker/template/default/init.sh` takes care of setting the correct permissions on the `vendor` and `Web` directories so that the nginx process can access them.
 
+In some templates there is also a `post-autoload-dump` task in composer.json that does a chown. So keep in mind to change that too if you have a different uid from 1000.
+
 ## Importing a database
 Any files in `.docker/db/` ending in `tar.gz` or `gz` will be imported.
 
@@ -138,9 +140,6 @@ composer dump-database
 # Or
 ./.docker/bin/dump.sh
 ```
-
-## Accessing the site by name
-Your site will be accessible on `prefix_web_1` and if you specify a hostname also on the specified hostname; `prefix.dev.local` in this case:
 
 ## SSL support
 Import `.docker/web/ca/cacert.crt` into your browser. Allow it authenticate websites.
@@ -157,3 +156,5 @@ The provided certificates have wildcards for:
 * *.xdbg.local
 
 This makes is possible to visit `prefix.dev.local` securely. If you want to use the blackfire php backend, you can visit `prefix.blackfire.local` or `prefix.bf.local`.
+
+You can regenerate the authority and certificates using `.docker/bin/generateCertificate.sh`. The configuration files are in `.docker/web/sslConfig`.
