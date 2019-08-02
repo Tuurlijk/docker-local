@@ -15,10 +15,10 @@ e_arrow Ensuring var exists
 mkdir -p /build/var
 
 e_arrow Populating additional typo3conf files
-cp --recursive --force /configuration/before_script/TYPO3-v8/typo3conf/* /build/Web/typo3conf/
+cp --recursive --force /configuration/template/TYPO3-v8/typo3conf/* /build/Web/typo3conf/
 
 e_arrow Setting up composer file
-cp --force /configuration/before_script/TYPO3-v8/composer.json /build/
+cp --force /configuration/template/TYPO3-v8/composer.json /build/
 
 e_arrow Enabling install tool
 touch /build/Web/typo3conf/ENABLE_INSTALL_TOOL

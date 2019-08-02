@@ -1,11 +1,13 @@
 # docker compose setup for local development
 This development environment uses as much default docker containers as possible.
 
-* Default [nginx](https://hub.docker.com/_/nginx) container - serves web pages
+* Default [nginx](https://hub.docker.com/fholzer/nginx-brotli) container - Nginx container with brotli support to serves web pages
 * Default [mariadb](https://hub.docker.com/_/mariadb) container - serves the database
 * Default [mailhog](https://hub.docker.com/r/mailhog/mailhog) container - catches all outgoing mail and displays it
 * Default [docker-hoster](https://hub.docker.com/r/dvdarias/docker-hoster) container - makes the containers accessible by name
 * Default [busybox](https://hub.docker.com/_/busybox) container - used for initialization
+* Default [blackfire](https://hub.docker.com/blackfire/blackfire) container - used for profiling your site
+* Default [ngrok](https://hub.docker.com/wernight/ngrok) container - used to share your local site with the world
 * Slightly changed php container (added graphicsmagick, rsync and some php modules) - serves up php
 
 ## Installation
@@ -29,6 +31,18 @@ The prefix of the containers. Your containers will come up as: `prefix_db_1`. Th
 * prefix.xdbg.local
 * prefix.blackfire.local
 * prefix.bf.local
+
+### TEMPATE ###
+Use a template to get an installation up quickly. Each template has an init.sh file to set up the environment. This may fix permissions and copy over files like composer.json and AdditionalConfiguration.php.
+
+Choose from: 
+* TYPO3-v7
+* TYPO3-v8
+* TYPO3-v9
+* TYPO3-v10
+* Neos-4
+
+Add your own templates in .docker/template/
 
 ### WEB_HOSTNAME
 The hostname where you can reach the website.
@@ -68,7 +82,7 @@ This ensure that the PHP-FPM process can read and write files in your project.
 
 The `php-fpm.conf` is re-used for the xdebug and blackfire backend.
 
-The `.docker/before_script/init.sh` takes care of setting the correct permissions on the `vendor` and `Web` directories so that the nginx process can access them.
+The `.docker/template/default/init.sh` takes care of setting the correct permissions on the `vendor` and `Web` directories so that the nginx process can access them.
 
 ## Importing a database
 Any files in `.docker/db/` ending in `tar.gz` or `gz` will be imported.
@@ -98,14 +112,3 @@ The provided certificates have wildcards for:
 * *.xdbg.local
 
 This makes is possible to visit `prefix.dev.local` securely. If you want to use the blackfire php backend, you can visit `prefix.blackfire.local` or `prefix.bf.local`.
-
-## Known issues
-Mariadb creates the database with latin1 collation. You can change the collation with the following SQL query on the db instance:
-```sql
-ALTER DATABASE database_name_here CHARACTER SET utf8 COLLATE utf8_general_ci;
-```
-
-From the host:
-```bash
-docker-compose exec db bash -c 'mysql -u root -psupersecret -e "ALTER DATABASE v8 CHARACTER SET utf8 COLLATE utf8_general_ci;"'
-```
