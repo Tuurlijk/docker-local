@@ -44,9 +44,6 @@ Choose from:
 
 Add your own templates in .docker/template/
 
-### WEB_HOSTNAME
-The hostname where you can reach the website.
-
 ### mysql database credentials
 
 #### MYSQL_DATABASE
