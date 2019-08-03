@@ -15,7 +15,7 @@ projectRoot=`dirname $projectRoot`
 
 source "$projectRoot/.env"
 
-dumpPath="$projectRoot/${CONFIGURATION_ROOT:-.}/db"
+dumpPath="$projectRoot/${CONFIGURATION_ROOT:-./.docker}/db"
 dumpFile=${dumpPath}/dump.sql
 db=${MYSQL_DATABASE}
 
