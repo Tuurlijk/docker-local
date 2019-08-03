@@ -138,14 +138,14 @@ volumes:
     driver_opts:
       type: tmpfs
       device: tmpfs
-      o: noatime,noexec,nodiratime,nodev,nosuid,async,mode=0777
+      o: "noatime,noexec,nodiratime,nodev,nosuid,async,mode=0770,uid=${UID:-1000},gid=${GID:-1000}"
   typo3tempRamdisk:
     driver_opts:
       type: tmpfs
       device: tmpfs
-      o: noatime,noexec,nodiratime,nodev,nosuid,async,mode=0777
+      o: "noatime,noexec,nodiratime,nodev,nosuid,async,mode=0770,uid=${UID:-1000},gid=${GID:-1000}"
   typo3varRamdisk:
     driver_opts:
       type: tmpfs
       device: tmpfs
-      o: noatime,noexec,nodiratime,nodev,nosuid,async,mode=0777
+      o: "noatime,noexec,nodiratime,nodev,nosuid,async,mode=0770,uid=${UID:-1000},gid=${GID:-1000}"
