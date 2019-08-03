@@ -37,6 +37,7 @@ services:
       - dbRamdisk:/var/lib/mysql
 
   php:
+    user: "${UID:-1000}:${GID:-1000}"
     build: ${CONFIGURATION_ROOT:-./.docker}/php/
     volumes:
       - ${CONFIGURATION_ROOT:-./.docker}/php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
@@ -44,10 +45,13 @@ services:
       - ${PROJECT_ROOT:-.}:/var/www/html
       - typo3tempRamdisk:/var/www/html/Web/typo3temp
       - typo3varRamdisk:/var/www/html/var
+      - ${HOME:-~}/.composer:/home/dev/.composer
+      - ${HOME:-~}/.composer:/home/docker/.composer
     depends_on:
       - before_script
 
   php_blackfire:
+    user: "${UID:-1000}:${GID:-1000}"
     build: ${CONFIGURATION_ROOT:-./.docker}/php_blackfire/
     volumes:
       - ${CONFIGURATION_ROOT:-./.docker}/php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
@@ -59,6 +63,7 @@ services:
       - before_script
 
   php_xdebug:
+    user: "${UID:-1000}:${GID:-1000}"
     build: ${CONFIGURATION_ROOT:-./.docker}/php_xdebug/
     volumes:
       - ${CONFIGURATION_ROOT:-./.docker}/php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
@@ -81,11 +86,31 @@ services:
       - web
 
   before_script:
+    user: "${UID:-1000}:${GID:-1000}"
     image: busybox:latest
+    env_file:
+      - ./.env
     volumes:
       - ${PROJECT_ROOT:-.}:/build
       - ${CONFIGURATION_ROOT:-./.docker}:/configuration
     entrypoint: /configuration/template/${TEMPLATE:-default}/init.sh
+
+  after_script:
+    user: "${UID:-1000}:${GID:-1000}"
+    build: ${CONFIGURATION_ROOT:-./.docker}/php/
+    env_file:
+      - ./.env
+    volumes:
+      - ${CONFIGURATION_ROOT:-./.docker}:/configuration
+      - ${CONFIGURATION_ROOT:-./.docker}/php/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
+      - ${PROJECT_ROOT:-.}:/var/www/html
+      - ${HOME:-~}/.composer:/home/dev/.composer
+      - ${HOME:-~}/.composer:/home/docker/.composer
+      - typo3tempRamdisk:/var/www/html/Web/typo3temp
+      - typo3varRamdisk:/var/www/html/var
+    depends_on:
+      - db
+    entrypoint: /configuration/template/${TEMPLATE:-default}/post.sh
 
   mailhog:
     image: mailhog/mailhog

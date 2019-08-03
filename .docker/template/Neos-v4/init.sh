@@ -13,5 +13,5 @@ cp --force /configuration/template/Neos-v4/composer.json /build/
 
 e_arrow Fixing permissions
 chmod -R ug+rwX,o+rX /build
-chown -R 1000:1000 /build
+
 e_success All done

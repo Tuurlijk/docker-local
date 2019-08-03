@@ -114,19 +114,7 @@ You can see your uid and gid by doing `id -u` and `id -g`.
 
 On many systems these values will be `1000`. Now we need to make sure that the PHP process runs as that user and group so it can read and write files in your web directory.
 
-We do this by adding the following lines to the file `.docker/php/php-fpm.conf`:
-```ini
-user = 1000
-group = 1000
-```
-
-This ensure that the PHP-FPM process can read and write files in your project.
-
-The `php-fpm.conf` is re-used for the xdebug and blackfire backend.
-
-The `.docker/template/default/init.sh` takes care of setting the correct permissions on the `vendor` and `Web` directories so that the nginx process can access them.
-
-In some templates there is also a `post-autoload-dump` task in composer.json that does a chown. So keep in mind to change that too if you have a different uid from 1000.
+If your uid and gid differ from 1000, set the `UID` and `GID` env vars in the `.env` file.
 
 ## Importing a database
 Any files in `.docker/db/` ending in `tar.gz` or `gz` will be imported.

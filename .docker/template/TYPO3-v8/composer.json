@@ -25,7 +25,8 @@
     "typo3/cms-t3editor": "^8.7",
     "typo3/cms-tstemplate": "^8.7",
     "typo3/minimal": "^8.7",
-    "typo3/cms-func": "^8.7"
+    "typo3/cms-func": "^8.7",
+    "michielroos/autologin": "^1.0"
   },
   "config": {
     "bin-dir": "bin",
@@ -53,9 +54,6 @@
     }
   },
   "scripts": {
-    "post-autoload-dump": [
-      "chown -R 1000:1000 ."
-    ],
     "ci:php:lint": "find ./ -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
     "clear-typo3-cache": "./bin/typo3cms cache:flush --files-only",
     "cc": "@clear-typo3-cache",

@@ -1,5 +1,11 @@
 FROM php:7.2-fpm
-MAINTAINER "michielroos" <michiel@michielroos.com>
+
+# create users and groups for most common default uids
+RUN set -x \
+    && if ! getent group dev; then groupadd -g 1000 -r dev; \
+    useradd -u 1000 -m -s /bin/bash -g dev dev; fi \
+    && if ! getent group docker; then groupadd -g 501 -r docker; \
+    useradd -u 501 -m -s /bin/bash -g docker docker; fi
 
 RUN apt-get update \
     && apt-get upgrade -y \
@@ -11,6 +17,7 @@ RUN apt-get update \
         libpng-dev \
         libxml2-dev \
         libzip-dev \
+        mysql-client \
         rsync \
         vim \
         zsh \

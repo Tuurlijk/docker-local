@@ -13,5 +13,5 @@ cp --force /configuration/template/default/index.php /build/Web/
 
 e_arrow Fixing permissions
 chmod -R ug+rwX,o+rX /build
-chown -R 1000:1000 /build
+
 e_success All done
