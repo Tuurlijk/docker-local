@@ -93,7 +93,7 @@ services:
     volumes:
       - ${PROJECT_ROOT:-.}:/build
       - ${CONFIGURATION_ROOT:-./.docker}:/configuration
-    entrypoint: /configuration/template/${TEMPLATE:-default}/init.sh
+    entrypoint: /configuration/template/${TEMPLATE:-default}/before.sh
 
   after_script:
     user: "${UID:-1000}:${GID:-1000}"
@@ -110,7 +110,7 @@ services:
       - typo3varRamdisk:/var/www/html/var
     depends_on:
       - db
-    entrypoint: /configuration/template/${TEMPLATE:-default}/post.sh
+    entrypoint: /configuration/template/${TEMPLATE:-default}/after.sh
 
   mailhog:
     image: mailhog/mailhog

@@ -33,7 +33,7 @@ The project name is used in the domain names of the http containers:
 * [prefix.mail.local](https://prefix.mail.local) - Mailhog
 
 ### TEMPLATE ###
-Use a template to get an installation up quickly. Each template has an init.sh file to set up the environment. This may fix permissions and copy over files like composer.json and AdditionalConfiguration.php.
+Use a template to get an installation up quickly. Each template has a `before.sh` file to set up the environment before any machine starts and an `after.sh` file to set up the environment after the machines have started. This may fix permissions and copy over files like composer.json and AdditionalConfiguration.php.
 
 Choose from: 
 * TYPO3-v7
