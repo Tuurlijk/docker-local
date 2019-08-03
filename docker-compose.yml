@@ -2,7 +2,7 @@ version: "3"
 services:
   web:
     image: fholzer/nginx-brotli
-    hostname: ${WEB_HOSTNAME}
+    hostname: ${WEB_HOSTNAME:-${COMPOSE_PROJECT_NAME}}
     volumes:
       - ${CONFIGURATION_ROOT:-./.docker}/web/default.conf:/etc/nginx/conf.d/default.conf:ro
       - ${CONFIGURATION_ROOT:-./.docker}/web/ssl:/etc/nginx/ssl:ro

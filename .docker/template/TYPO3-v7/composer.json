@@ -11,7 +11,8 @@
   "require": {
     "helhum/typo3-console": "^4.2",
     "symfony/dotenv": "^4.1",
-    "typo3/cms": "^7.6"
+    "typo3/cms": "^7.6",
+    "michielroos/autologin": "^1.0"
   },
   "config": {
     "bin-dir": "bin",
