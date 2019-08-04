@@ -23,4 +23,4 @@ tmpdir = /dev/shm
 innodb_flush_method = nosync
 innodb_flush_log_at_trx_commit = 0
 innodb_doublewrite = 0
-innodb_checksums = 0
+innodb_checksum_algorithm = NONE
