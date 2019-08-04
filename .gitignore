@@ -1,8 +1,4 @@
 /.idea
-/.docker/db/database.sql
-/.docker/db/database.sql.gz
-/Web/*
-/vendor
-/var
-/bin
-/.docker/web/ca/tmp/
+/db/*.sql
+/db/*.gz
+/web/ca/tmp/

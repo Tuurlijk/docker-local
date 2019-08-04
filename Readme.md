@@ -15,9 +15,9 @@ Disclaimer: This was developed and tested on Linux. Pull requests are welcome ;-
 ## Installation
 
 ```bash
-git clone https://github.com/Tuurlijk/docker-local.git
-cd docker-local
-docker-compose up
+mkdir project && cd project
+git clone https://github.com/Tuurlijk/docker-local.git .docker
+docker-compose -f .docker/docker-compose.yml up
 ```
 
 ## Configuration
