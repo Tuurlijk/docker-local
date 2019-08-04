@@ -10,7 +10,6 @@ e_success() { echo -e "\033[1;32m✔\033[0m $@"; }
 create_ramdisk_mountpoints() {
     e_arrow Creating ramdisk mountpoints
     mkdir -p /build/Web/typo3temp/ /build/var
-    chown -R ${UID}:${GID} /build/Web/typo3temp/ /build/var
 }
 
 wait_for_database() {
@@ -88,3 +87,5 @@ show_entry_points() {
 
     echo
 }
+
+create_ramdisk_mountpoints
