@@ -8,8 +8,10 @@ e_success() { echo -e "\033[1;32m✔\033[0m $@"; }
 
 # This is needed to ensure that the mountpoints are owned by the user and not by root
 create_ramdisk_mountpoints() {
-    e_arrow Creating ramdisk mountpoints
-    mkdir -p /build/Web/typo3temp/ /build/var
+    if [[ ! -d /build/Web/typo3temp ]] || [[ ! -d /build/var ]]; then
+        e_arrow Creating ramdisk mountpoints
+        mkdir -p /build/Web/typo3temp /build/var
+    fi
 }
 
 wait_for_database() {
@@ -23,7 +25,7 @@ wait_for_database() {
 
 enable_install_tool() {
     e_arrow Enabling install tool
-    touch /build/Web/typo3conf/ENABLE_INSTALL_TOOL
+    touch /var/www/html/Web/typo3conf/ENABLE_INSTALL_TOOL
 }
 
 enable_first_install() {
@@ -73,7 +75,7 @@ install_typo3() {
 
 fix_permissions() {
     e_arrow Ensuring the webserver can read the files
-    chmod -R ug+rwX,o+rX /build
+    chmod -R ug+rwX,o+rX /var/www/html
 }
 
 show_entry_points() {
