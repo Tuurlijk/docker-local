@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Library
 
@@ -84,4 +84,6 @@ show_entry_points() {
     e_arrow "Blackfire   https://${COMPOSE_PROJECT_NAME}.blackfire.local"
     e_arrow "Xdebug      https://${COMPOSE_PROJECT_NAME}.xdebug.local"
     e_arrow "Mailhog     https://${COMPOSE_PROJECT_NAME}.mail.local"
+
+    echo
 }

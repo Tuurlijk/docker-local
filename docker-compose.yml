@@ -96,7 +96,7 @@ services:
 
   after_script:
     user: "${UID:-1000}:${GID:-1000}"
-    build: ./php/
+    build: ./php
     env_file:
       - ../.env
     volumes:
