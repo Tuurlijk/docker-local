@@ -15,10 +15,10 @@ projectRoot=`dirname $projectRoot`
 
 source "$projectRoot/.env"
 
-certificateAuthorityPath="$projectRoot/${CONFIGURATION_ROOT}/web/ca"
-certificatePath="$projectRoot/${CONFIGURATION_ROOT}/web/ssl"
-certificateConfigPath="$projectRoot/${CONFIGURATION_ROOT}/web/sslConfig"
-certificateTmpPath="$projectRoot/${CONFIGURATION_ROOT}/web/ca/tmp"
+certificateAuthorityPath="$projectRoot/.docker/web/ca"
+certificatePath="$projectRoot/.docker/web/ssl"
+certificateConfigPath="$projectRoot/.docker/web/sslConfig"
+certificateTmpPath="$projectRoot/.docker/web/ca/tmp"
 
 e_header Generating certificate
 
