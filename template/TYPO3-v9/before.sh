@@ -1,10 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-# Initialization script with which you can set up your project
-
-function e_header()  { echo -e "\n\033[1m$@\033[0m"; }
-function e_arrow()   { echo -e "\033[1;34m➜\033[0m $@"; }
-function e_success() { echo -e "\033[1;32m✔\033[0m $@"; }
+source ../lib.sh
 
 e_header Setting up TYPO3
 

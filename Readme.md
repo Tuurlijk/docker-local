@@ -17,7 +17,13 @@ Disclaimer: This was developed and tested on Linux. Pull requests are welcome ;-
 ```bash
 mkdir project && cd project
 git clone https://github.com/Tuurlijk/docker-local.git .docker
+cp .docker/.env .
 docker-compose -f .docker/docker-compose.yml up
+```
+
+Fo extra ease of use you can create an alias:
+```bash
+alias dc="docker-compose -f .docker/docker-compose.yml"
 ```
 
 ## Configuration
@@ -97,12 +103,6 @@ Server id
 Server token
 
 *This option is commented out by default because you are better of setting it globally in your shell environment.*
-
-### CONFIGURATION_ROOT
-The relative path to the configuration folder. If you copy the .env and docker-compose.yml file to your project root, you can point to this configuration folder. This way you will not pollute your project with the configuration files (besides docker-compose.yml and .env).
-
-### PROJECT_ROOT
-The path to the root of your project. The default nginx.conf expects a `Web` folder in your project root which is the website root. You can change the nginx configuration in `.docker/web/default.conf`
 
 ## Fixing permissions
 The most important thing here is to set up the proper permissions inside the containers so that nginx can read and php-fpm can read and write files.
