@@ -89,6 +89,9 @@ services:
     image: bash:latest
     env_file:
       - ../.env
+    environment:
+      - UID=${UID:-1000}
+      - GID=${GID:-1000}
     volumes:
       - ../:/build
       - ./:/configuration
