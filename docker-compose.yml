@@ -32,7 +32,7 @@ services:
       - ../.env
     volumes:
       - ./db:/docker-entrypoint-initdb.d/:ro
-      - ./db/mysql.cnf:/etc/mysql/conf.d/zzz-custom.cnf:ro
+      - ./db/mysql.cnf:/etc/mysql/mariadb.conf.d/zzz-custom.cnf:ro
       - dbRamdisk:/var/lib/mysql
 
   php:
