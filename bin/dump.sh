@@ -15,7 +15,7 @@ projectRoot=`dirname $projectRoot`
 
 source "$projectRoot/.env"
 
-dumpPath="$projectRoot/${CONFIGURATION_ROOT:-./.docker}/db"
+dumpPath="$projectRoot/.docker/db"
 dumpFile=${dumpPath}/dump.sql
 db=${MYSQL_DATABASE}
 
@@ -24,7 +24,7 @@ e_arrow Creating backup file from current dump
 if [[ -e ${dumpFile}.gz ]]; then
     mv ${dumpFile}.gz ${dumpFile}.gz.bak
 fi
-docker-compose exec -T db mysqldump -p${MYSQL_ROOT_PASSWORD} ${db} > ${dumpFile}
+docker-compose -f .docker/docker-compose.yml exec -T db mysqldump -p${MYSQL_ROOT_PASSWORD} ${db} > ${dumpFile}
 if [[ $? -gt 0 ]]; then
     e_error Failed to create backup
     e_arrow Restoring backup file to dump
