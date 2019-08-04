@@ -25,7 +25,8 @@ wait_for_database() {
 
 enable_install_tool() {
     e_arrow Enabling install tool
-    touch /var/www/html/Web/typo3conf/ENABLE_INSTALL_TOOL
+    mkdir -p /build/Web/typo3conf
+    touch /build/Web/typo3conf/ENABLE_INSTALL_TOOL
 }
 
 enable_first_install() {
