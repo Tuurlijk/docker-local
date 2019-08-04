@@ -2,7 +2,7 @@
 #
 # Initialize project
 
-source ../lib.sh
+source /configuration/template/lib.sh
 
 e_header Setting up default
 

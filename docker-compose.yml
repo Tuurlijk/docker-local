@@ -37,7 +37,7 @@ services:
 
   php:
     user: "${UID:-1000}:${GID:-1000}"
-    build: ./php/
+    build: ./php
     volumes:
       - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
       - ./php/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
@@ -51,7 +51,7 @@ services:
 
   php_blackfire:
     user: "${UID:-1000}:${GID:-1000}"
-    build: ./php_blackfire/
+    build: ./php_blackfire
     volumes:
       - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
       - ./php_blackfire/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
@@ -63,7 +63,7 @@ services:
 
   php_xdebug:
     user: "${UID:-1000}:${GID:-1000}"
-    build: ./php_xdebug/
+    build: ./php_xdebug
     volumes:
       - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
       - ./php_xdebug/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
@@ -86,7 +86,7 @@ services:
 
   before_script:
     user: "${UID:-1000}:${GID:-1000}"
-    image: busybox:latest
+    image: bash:latest
     env_file:
       - ../.env
     volumes:
