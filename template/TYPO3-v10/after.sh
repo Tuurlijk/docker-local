@@ -10,6 +10,8 @@ cd /var/www/html || exit
 
 composer_install
 
+fix_permissions
+
 e_success All done
 
 show_entry_points

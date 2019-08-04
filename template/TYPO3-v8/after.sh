@@ -15,6 +15,8 @@ install_typo3
 e_arrow Setting up autologin
 ./bin/typo3cms extension:setupactive autologin
 
+fix_permissions
+
 e_success All done
 
 show_entry_points

@@ -71,9 +71,8 @@ install_typo3() {
     fi
 }
 
-# I don't think this is needed any more
 fix_permissions() {
-    e_arrow Fixing permissions
+    e_arrow Ensuring the webserver can read the files
     chmod -R ug+rwX,o+rX /build
 }
 

@@ -6,6 +6,8 @@ source /configuration/template/lib.sh
 
 wait_for_database
 
+fix_permissions
+
 e_success All done
 
 show_entry_points
