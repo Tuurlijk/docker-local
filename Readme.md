@@ -10,7 +10,9 @@ This development environment uses as much default docker containers as possible.
 * Default [ngrok](https://hub.docker.com/r/wernight/ngrok) container - used to share your local site with the world
 * Slightly changed php container (added graphicsmagick, rsync and some php modules) - serves up php
 
-Disclaimer: This was developed and tested on Linux. Pull requests are welcome ;-)
+Disclaimer: This was developed and tested on Linux. OSX has some limitations when it comes to easy access to docker hosts by hostname: [Docker Known limitations, use cases, and workarounds](https://docs.docker.com/docker-for-mac/networking/#known-limitations-use-cases-and-workarounds)
+
+Pull requests are welcome ;-)
 
 ## Installation
 
