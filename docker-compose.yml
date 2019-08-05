@@ -133,6 +133,9 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - /etc/hosts:/tmp/hosts
 
+#  redis:
+#    image: redis:latest
+
 volumes:
   dbRamdisk:
     driver_opts:
