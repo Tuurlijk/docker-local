@@ -17,7 +17,7 @@ RUN apt-get update \
         libpng-dev \
         libxml2-dev \
         libzip-dev \
-        mysql-client \
+        mariadb-client \
         rsync \
         vim \
         zsh \
