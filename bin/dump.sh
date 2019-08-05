@@ -24,6 +24,7 @@ e_arrow Creating backup file from current dump
 if [[ -e ${dumpFile}.gz ]]; then
     mv ${dumpFile}.gz ${dumpFile}.gz.bak
 fi
+e_arrow Creating backup of database ${MYSQL_DATABASE}
 docker-compose -f .docker/docker-compose.yml exec -T db mysqldump -p${MYSQL_ROOT_PASSWORD} ${db} > ${dumpFile}
 if [[ $? -gt 0 ]]; then
     e_error Failed to create backup
