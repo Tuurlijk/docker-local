@@ -145,3 +145,6 @@ The provided certificates have wildcards for:
 This makes is possible to visit `prefix.dev.local` securely. If you want to use the blackfire php backend, you can visit `prefix.blackfire.local` or `prefix.bf.local`.
 
 You can regenerate the authority and certificates using `.docker/bin/generateCertificate.sh`. The configuration files are in `.docker/web/sslConfig`.
+
+## Known Issues
+For some reason . . . sometimes the var and Web directories get created with owner and group root. This breaks the installation.
