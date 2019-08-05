@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:7.3-fpm
 
 # create users and groups for most common default uids
 RUN set -x \
