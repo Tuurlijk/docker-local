@@ -47,3 +47,9 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
 
 RUN yes | pecl install xdebug \
     && docker-php-ext-enable xdebug
+
+RUN yes | pecl install igbinary \
+    && docker-php-ext-enable igbinary
+
+RUN yes | pecl install redis \
+    && docker-php-ext-enable redis

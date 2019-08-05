@@ -50,3 +50,9 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
     && docker-php-ext-install -j$(nproc) zip \
     && yes | pecl install imagick \
     && docker-php-ext-enable imagick
+
+RUN yes | pecl install igbinary \
+    && docker-php-ext-enable igbinary
+
+RUN yes | pecl install redis \
+    && docker-php-ext-enable redis
