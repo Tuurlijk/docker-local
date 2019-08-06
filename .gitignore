@@ -2,3 +2,4 @@
 /db/*.sql
 /db/*.gz
 /web/ca/tmp/
+/docker-compose.*.yml
