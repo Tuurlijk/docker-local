@@ -155,6 +155,10 @@ composer dump-database
 ./.docker/bin/dump.sh
 ```
 
+## Host naming inside the containers
+
+All containers are started within their own subnet. They can reach each other by the *service names* specified in `.docker/docker-compose.yml`. So the `php` machine can reference the `redis` machine by using hostname **redis**.
+
 ## SSL support
 Import `.docker/web/ca/cacert.crt` into your browser. Allow it authenticate websites.
 This was generated using: https://gist.github.com/jchandra74/36d5f8d0e11960dd8f80260801109ab0
