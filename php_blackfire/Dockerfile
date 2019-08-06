@@ -3,9 +3,9 @@ FROM php:7.3-fpm
 # create users and groups for most common default uids
 RUN set -x \
     && if ! getent group dev; then groupadd -g 1000 -r dev; \
-    useradd -u 1000 -m -s /bin/bash -g dev dev; fi \
+    useradd -u 1000 -m -s /bin/bash -g dev dev -d /var/www/html; fi \
     && if ! getent group docker; then groupadd -g 501 -r docker; \
-    useradd -u 501 -m -s /bin/bash -g docker docker; fi
+    useradd -u 501 -m -s /bin/bash -g docker docker -d /var/www/html; fi
 
 RUN apt-get update \
     && apt-get upgrade -y \
@@ -45,6 +45,16 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
     && docker-php-ext-install -j$(nproc) zip \
     && yes | pecl install imagick \
     && docker-php-ext-enable imagick
+
+# Cleanup dev libs and headers
+RUN apt-get purge -y -f --force-yes \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libmagickwand-dev \
+    libpng-dev \
+    libxml2-dev \
+    libzip-dev \
+    && apt-get autoremove --purge -y
 
 RUN yes | pecl install igbinary \
     && docker-php-ext-enable igbinary
