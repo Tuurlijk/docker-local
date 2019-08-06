@@ -8,12 +8,14 @@ RUN set -x \
     useradd -u 501 -m -s /bin/bash -g docker docker -d /var/www/html; fi
 
 RUN apt-get update \
+    && apt-get upgrade -y \
     && apt-get install -y \
         graphicsmagick \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmagickwand-dev \
         libpng-dev \
+        libwebp-dev \
         libxml2-dev \
         libzip-dev \
         mariadb-client \
