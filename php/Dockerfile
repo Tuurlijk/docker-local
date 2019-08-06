@@ -33,10 +33,13 @@ RUN curl -L https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsen
     && mv mhsendmail_linux_amd64 /usr/local/bin/mhsendmail \
     && chsh root -s /bin/zsh
 
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) bz2 \
+RUN docker-php-ext-configure gd \
+        --with-freetype-dir=/usr/include/ \
+        --with-jpeg-dir=/usr/include/ \
+        --with-png-dir=/usr/include/ \
+        --with-webp-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-install -j$(nproc) iconv \
+    && docker-php-ext-install -j$(nproc) bz2 \
     && docker-php-ext-install -j$(nproc) intl \
     && docker-php-ext-install -j$(nproc) mysqli \
     && docker-php-ext-install -j$(nproc) opcache \
