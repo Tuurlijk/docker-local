@@ -46,21 +46,14 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
     && yes | pecl install imagick \
     && docker-php-ext-enable imagick
 
-# Cleanup dev libs and headers
-RUN apt-get purge -y -f --force-yes \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libmagickwand-dev \
-    libpng-dev \
-    libxml2-dev \
-    libzip-dev \
-    && apt-get autoremove --purge -y
-
-RUN yes | pecl install xdebug \
-    && docker-php-ext-enable xdebug
+## Cleanup dev libs and headers
+RUN apt-get autoremove --purge -y
 
 RUN yes | pecl install igbinary \
     && docker-php-ext-enable igbinary
 
 RUN yes | pecl install redis \
     && docker-php-ext-enable redis
+
+RUN yes | pecl install xdebug \
+    && docker-php-ext-enable xdebug
