@@ -11,6 +11,7 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y \
         graphicsmagick \
+        imagemagick \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmagickwand-dev \
@@ -50,7 +51,6 @@ RUN docker-php-ext-configure gd \
     && yes | pecl install imagick \
     && docker-php-ext-enable imagick
 
-## Cleanup dev libs and headers
 RUN apt-get autoremove --purge -y
 
 RUN yes | pecl install igbinary \
