@@ -109,7 +109,7 @@ services:
       - typo3tempRamdisk:/var/www/html/Web/typo3temp
       - typo3varRamdisk:/var/www/html/var
     depends_on:
-      - db
+      - web
     entrypoint: /configuration/template/${TEMPLATE:-default}/after.sh
 
   mailhog:
