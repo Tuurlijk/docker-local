@@ -21,6 +21,7 @@ services:
           - ${COMPOSE_PROJECT_NAME}.xdbg.local
           - ${COMPOSE_PROJECT_NAME}.xdebug.local
     depends_on:
+      - before_script
       - db
       - php
       - php_blackfire
@@ -35,6 +36,8 @@ services:
       - ./db/mysql.cnf:/etc/mysql/conf.d/zzz-custom.cnf:ro
       - ./db/mysql.cnf:/etc/mysql/mariadb.conf.d/zzz-custom.cnf:ro
       - dbRamdisk:/var/lib/mysql
+    depends_on:
+      - before_script
 
   php:
     user: "${UID:-1000}:${GID:-1000}"
@@ -115,6 +118,8 @@ services:
   mailhog:
     image: mailhog/mailhog
     hostname: ${COMPOSE_PROJECT_NAME}.mailhog.local
+    depends_on:
+      - before_script
 
   ngrok:
     image: wernight/ngrok
