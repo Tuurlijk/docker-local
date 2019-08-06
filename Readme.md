@@ -28,6 +28,31 @@ Fo extra ease of use you can create an alias:
 alias dc="docker-compose -f .docker/docker-compose.yml"
 ```
 
+## Ephemeral
+
+The containers are ephemeral as suggested in [Best practices for writing Docker files](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+
+*The image defined by your Dockerfile should generate containers that are as ephemeral as possible. By “ephemeral”, we mean that the container can be stopped and destroyed, then rebuilt and replaced with an absolute minimum set up and configuration.*
+
+Of course all the files in your project directory remain in place, but temporary stuff like `Web/typo3temp` and `var` run in ramdisk (tmpfs) volumes that will be removed when the machines stop.
+
+The database also runs in a tmpfs volume. If you want to save it, please use `./.docker/bin/dump.sh`. This will create a gzipped dump in `.docker/db/` that will be automatically re-imported into the db instance when it starts again.
+
+If your database is so big that it takes too much time to import it often, consider using a regular docker volume for the database:
+
+```yaml
+  db:
+    image: mariadb:latest
+    env_file:
+      - ../.env
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro
+      - ./db/mysql.cnf:/etc/mysql/mariadb.conf.d/zzz-custom.cnf:ro
+      - ./db/lib/mysql:/var/lib/mysql
+``` 
+
+This will store the database in `.docker/db/lib/mysql`. Make sure you create `.docker/db/lib/mysql` or the machine will not start ;-)
+
 ## Configuration
 Each container may use configuration files from the `.docker` folder.
 
