@@ -8,6 +8,7 @@ This development environment uses as much default docker containers as possible.
 * Default [busybox](https://hub.docker.com/_/busybox) container - used for initialization
 * Default [blackfire](https://hub.docker.com/r/blackfire/blackfire) container - used for profiling your site
 * Default [ngrok](https://hub.docker.com/r/wernight/ngrok) container - used to share your local site with the world
+* Default [dozzle](https://hub.docker.com/r/amir20/dozzle) container - used to inspect the logs in browser
 * Slightly changed php container (added graphicsmagick, rsync and some php modules) - serves up php
 
 Disclaimer: This was developed and tested on Linux. OSX has some limitations when it comes to easy access to docker hosts by hostname: [Docker Known limitations, use cases, and workarounds](https://docs.docker.com/docker-for-mac/networking/#known-limitations-use-cases-and-workarounds)
@@ -64,6 +65,7 @@ The project name is used in the domain names of the http containers:
 * [prefix.xdebug.local](https://prefix.xdebug.local) / [prefix.debug.local](https://prefix.debug.local) / [prefix.xdbg.local](https://prefix.xdbg.local) - Xdebug enabled PHP
 * [prefix.blackfire.local](https://prefix.blackfire.local) / [prefix.bf.local](https://prefix.bf.local) / [prefix.fire.local](https://prefix.fire.local) / [prefix.black.local](https://prefix.black.local) - Blackfire enabled PHP
 * [prefix.mail.local](https://prefix.mail.local) - Mailhog
+* [prefix.logs.local](https://prefix.logs.local) - Dozzle
 
 ### TEMPLATE ###
 Use a template to get an installation up quickly. Each template has a `before.sh` file to set up the environment before any machine starts and an `after.sh` file to set up the environment after the machines have started. This may fix permissions and copy over files like composer.json and AdditionalConfiguration.php.
@@ -172,10 +174,12 @@ The provided certificates have wildcards for:
 * *.xdebug.local
 * *.debug.local
 * *.xdbg.local
+* *.mail.local
+* *.logs.local
 
 This makes is possible to visit `prefix.dev.local` securely. If you want to use the blackfire php backend, you can visit `prefix.blackfire.local` or `prefix.bf.local`.
 
-You can regenerate the authority and certificates using `.docker/bin/generateCertificate.sh`. The configuration files are in `.docker/web/sslConfig`.
+You can regenerate your own custom authority and certificates using `.docker/bin/generateCertificate.sh`. The configuration files are in `.docker/web/sslConfig`. If you want to add a wildcard domain to the SAN list, run `.docker/bin/reGenerateCertificate.sh`.
 
 ## Known Issues
 * Sometimes the var and Web directories get created with owner and group root. This breaks the installation.

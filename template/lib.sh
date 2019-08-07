@@ -91,6 +91,7 @@ show_entry_points() {
     e_arrow "Blackfire   https://${COMPOSE_PROJECT_NAME}.blackfire.local  https://${COMPOSE_PROJECT_NAME}.blackfire.local/typo3"
     e_arrow "Xdebug      https://${COMPOSE_PROJECT_NAME}.xdebug.local     https://${COMPOSE_PROJECT_NAME}.xdebug.local/typo3"
     e_arrow "Mailhog     https://${COMPOSE_PROJECT_NAME}.mail.local"
+    e_arrow "Dozzle      https://${COMPOSE_PROJECT_NAME}.logs.local"
 
     echo
 }

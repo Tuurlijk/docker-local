@@ -17,6 +17,7 @@ services:
           - ${COMPOSE_PROJECT_NAME}.blackfire.local
           - ${COMPOSE_PROJECT_NAME}.debug.local
           - ${COMPOSE_PROJECT_NAME}.fire.local
+          - ${COMPOSE_PROJECT_NAME}.logs.local
           - ${COMPOSE_PROJECT_NAME}.mail.local
           - ${COMPOSE_PROJECT_NAME}.xdbg.local
           - ${COMPOSE_PROJECT_NAME}.xdebug.local
@@ -137,6 +138,13 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - /etc/hosts:/tmp/hosts
+
+  logs:
+    image: amir20/dozzle
+    environment:
+      - DOZZLE_TAILSIZE=500
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 
 #  redis:
 #    image: redis:latest

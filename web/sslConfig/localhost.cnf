@@ -34,3 +34,4 @@ DNS.7 = *.fire.local
 DNS.8 = *.debug.local
 DNS.9 = *.mail.local
 DNS.10 = *.mailhog.local
+DNS.11 = *.logs.local
