@@ -1,4 +1,16 @@
+# MariaDB-specific config file.
+# Read by /etc/mysql/my.cnf
+
+[client]
+# Default is Latin1, if you need UTF-8 set this (also in server section)
+default-character-set = utf8
+
 [mysqld]
+#
+# * Character sets
+#
+# Default is Latin1, if you need UTF-8 set all this (also in client section)
+#
 collation-server = utf8mb4_unicode_ci
 collation_server = utf8mb4_unicode_ci
 init-connect = 'SET NAMES utf8mb4'
@@ -24,3 +36,6 @@ innodb_flush_method = nosync
 innodb_flush_log_at_trx_commit = 0
 innodb_doublewrite = 0
 innodb_checksum_algorithm = NONE
+
+# Import all .cnf files from configuration directory
+!includedir /etc/mysql/mariadb.conf.d/

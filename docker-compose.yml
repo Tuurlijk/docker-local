@@ -32,10 +32,9 @@ services:
     env_file:
       - ../.env
     volumes:
-      - ./db:/docker-entrypoint-initdb.d/:ro
-      - ./db/mysql.cnf:/etc/mysql/conf.d/zzz-custom.cnf:ro
-      - ./db/mysql.cnf:/etc/mysql/mariadb.conf.d/zzz-custom.cnf:ro
       - dbRamdisk:/var/lib/mysql
+      - ./db/mariadb.cnf:/etc/mysql/mariadb.cnf:ro
+      - ./db:/docker-entrypoint-initdb.d/:ro
     depends_on:
       - before_script
 
