@@ -8,9 +8,14 @@ e_success() { echo -e "\033[1;32m✔\033[0m $@"; }
 
 # This is needed to ensure that the mountpoints are owned by the user and not by root
 create_ramdisk_mountpoints() {
-    if [[ ! -d /build/Web/typo3temp ]] || [[ ! -d /build/var ]]; then
+    if [[ -d /build && ! -d /build/Web/typo3temp ]] || [[ -d /build && ! -d /build/var ]]; then
         e_arrow Creating ramdisk mountpoints
         mkdir -p /build/Web/typo3temp /build/var
+    fi
+
+    if [[ -d /var/www/html && ! -d /var/www/html/Web/typo3temp ]] || [[ -d /var/www/html && ! -d /var/www/html/var ]]; then
+        e_arrow Creating ramdisk mountpoints
+        mkdir -p /var/www/html/Web/typo3temp /var/www/html/var
     fi
 }
 
@@ -82,9 +87,9 @@ fix_permissions() {
 show_entry_points() {
     e_header You can reach the your sites on the following urls:
     
-    e_arrow "Default PHP https://${COMPOSE_PROJECT_NAME}.dev.local"
-    e_arrow "Blackfire   https://${COMPOSE_PROJECT_NAME}.blackfire.local"
-    e_arrow "Xdebug      https://${COMPOSE_PROJECT_NAME}.xdebug.local"
+    e_arrow "Default PHP https://${COMPOSE_PROJECT_NAME}.dev.local        https://${COMPOSE_PROJECT_NAME}.dev.local/typo3"
+    e_arrow "Blackfire   https://${COMPOSE_PROJECT_NAME}.blackfire.local  https://${COMPOSE_PROJECT_NAME}.blackfire.local/typo3"
+    e_arrow "Xdebug      https://${COMPOSE_PROJECT_NAME}.xdebug.local     https://${COMPOSE_PROJECT_NAME}.xdebug.local/typo3"
     e_arrow "Mailhog     https://${COMPOSE_PROJECT_NAME}.mail.local"
 
     echo
