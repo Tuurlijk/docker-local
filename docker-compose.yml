@@ -142,7 +142,7 @@ services:
   logs:
     image: amir20/dozzle
     environment:
-      - DOZZLE_TAILSIZE=500
+      - DOZZLE_FILTER=name=${COMPOSE_PROJECT_NAME}_(web|php*|db)_*
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
