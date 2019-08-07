@@ -19,6 +19,7 @@ RUN apt-get update \
         libwebp-dev \
         libxml2-dev \
         libzip-dev \
+        zlib1g-dev \
         mariadb-client \
         rsync \
         vim \
@@ -51,8 +52,6 @@ RUN docker-php-ext-configure gd \
     && yes | pecl install imagick \
     && docker-php-ext-enable imagick
 
-RUN apt-get autoremove --purge -y
-
 RUN yes | pecl install igbinary \
     && docker-php-ext-enable igbinary
 
@@ -65,3 +64,13 @@ RUN apt-get update \
         unzip \
         --no-install-recommends
 
+RUN apt-get clean \
+    && apt-get -y purge \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmagickwand-dev \
+        libpng-dev \
+        libwebp-dev \
+        libxml2-dev \
+    && apt-get autoremove --purge -y \
+    && rm -rf /var/lib/apt/lists/* /usr/src/*

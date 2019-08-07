@@ -19,6 +19,7 @@ RUN apt-get update \
         libwebp-dev \
         libxml2-dev \
         libzip-dev \
+        zlib1g-dev \
         mariadb-client \
         rsync \
         vim \
@@ -51,8 +52,6 @@ RUN docker-php-ext-configure gd \
     && yes | pecl install imagick \
     && docker-php-ext-enable imagick
 
-RUN apt-get autoremove --purge -y
-
 RUN yes | pecl install igbinary \
     && docker-php-ext-enable igbinary
 
@@ -66,3 +65,14 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so \
     && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > $PHP_INI_DIR/conf.d/blackfire.ini \
     && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
+
+RUN apt-get clean \
+    && apt-get -y purge \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmagickwand-dev \
+        libpng-dev \
+        libwebp-dev \
+        libxml2-dev \
+    && apt-get autoremove --purge -y \
+    && rm -rf /var/lib/apt/lists/* /usr/src/*
