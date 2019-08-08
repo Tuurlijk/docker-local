@@ -24,6 +24,7 @@ RUN apt-get update \
         zlib1g-dev \
         mariadb-client \
         rsync \
+        parallel \
         vim \
         zsh \
         --no-install-recommends
