@@ -29,6 +29,30 @@ Fo extra ease of use you can create an alias:
 alias dc="docker-compose -f .docker/docker-compose.yml"
 ```
 
+Bonus aliases:
+```bash
+# Colorful messages
+e_header()  { echo -e "\n\033[1m$@\033[0m"; }
+e_success() { echo -e " \033[1;32m✔\033[0m  $@"; }
+e_error()   { echo -e " \033[1;31m✖\033[0m  $@"; }
+
+# Docker
+alias d=docker
+alias dp="docker ps"
+alias dc="docker-compose -f .docker/docker-compose.yml"
+alias dev="docker-compose -f .docker/docker-compose.yml"
+alias down='f(){ dev rm -fsv $@; unset -f f; }; f'
+alias up='f(){ dev up -d $@ && dev logs -f before_script after_script; unset -f f; }; f'
+alias on=up
+alias off=down
+alias re='f(){ dev rm -fsv $@ && dev build $@ && dev up -d $@ && dev logs -f before_script after_script; unset -f f; }; f'
+alias offon=re
+alias ds="dev exec php bash -l"
+alias cf='e_header "Running typo3cms cache:flush"; ds -c "./Web/bin/typo3cms cache:flush"; e_success Done'
+alias ct='e_header "Clearing ./Web/typo3temp/*"; ds -c "echo removing \`find ./Web/typo3temp/ -type f | wc -l\` files; rm -rf ./Web/typo3temp/*"; e_success Done'
+alias docker-wraith="docker run --rm -P -v \$PWD:/wraithy -w='/wraithy' bbcnews/wraith"
+```
+
 ## Ephemeral
 
 The containers are ephemeral as suggested in [Best practices for writing Docker files](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
