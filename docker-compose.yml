@@ -43,7 +43,6 @@ services:
     user: "${UID:-1000}:${GID:-1000}"
     image: michielroos/php-fpm:7.3
     volumes:
-      - /etc/hosts:/etc/hosts:ro
       - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
       - ./php/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
       - ../:/var/www/html
