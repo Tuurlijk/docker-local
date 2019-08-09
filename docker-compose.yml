@@ -41,9 +41,7 @@ services:
 
   php:
     user: "${UID:-1000}:${GID:-1000}"
-    build:
-      context: ./build
-      dockerfile: ./php/Dockerfile
+    image: michielroos/php-fpm
     volumes:
       - /etc/hosts:/etc/hosts:ro
       - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
@@ -58,9 +56,7 @@ services:
 
   php_blackfire:
     user: "${UID:-1000}:${GID:-1000}"
-    build:
-      context: ./build
-      dockerfile: ./php_blackfire/Dockerfile
+    image: michielroos/php-fpm:7.3-blackfire
     volumes:
       - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
       - ./php_blackfire/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
@@ -72,9 +68,7 @@ services:
 
   php_xdebug:
     user: "${UID:-1000}:${GID:-1000}"
-    build:
-      context: ./build
-      dockerfile: ./php_xdebug/Dockerfile
+    image: michielroos/php-fpm:7.3-xdebug
     volumes:
       - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
       - ./php_xdebug/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
