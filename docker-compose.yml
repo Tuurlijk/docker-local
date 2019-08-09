@@ -41,7 +41,7 @@ services:
 
   php:
     user: "${UID:-1000}:${GID:-1000}"
-    image: michielroos/php-fpm
+    image: michielroos/php-fpm:7.3
     volumes:
       - /etc/hosts:/etc/hosts:ro
       - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
@@ -101,7 +101,7 @@ services:
 
   after_script:
     user: "${UID:-1000}:${GID:-1000}"
-    image: michielroos/php-fpm
+    image: michielroos/php-fpm:7.3
     env_file:
       - ../.env
     volumes:
