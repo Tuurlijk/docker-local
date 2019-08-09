@@ -1,17 +1,9 @@
 FROM php:7.3-fpm
 
-# create users and groups for most common default uids
-RUN set -x \
-    && if ! getent group dev; then groupadd -g 1000 -r dev; \
-    useradd -u 1000 -m -s /bin/zsh -g dev dev; fi \
-    && if ! getent group docker; then groupadd -g 501 -r docker; \
-    useradd -u 501 -m -s /bin/zsh -g docker docker; fi
-
-COPY dev.sh /etc/profile.d/
-
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y \
+        git \
         graphicsmagick \
         imagemagick \
         libfreetype6-dev \
@@ -21,13 +13,19 @@ RUN apt-get update \
         libwebp-dev \
         libxml2-dev \
         libzip-dev \
+        locales \
         zlib1g-dev \
         mariadb-client \
         rsync \
         parallel \
+        unzip \
         vim \
         zsh \
         --no-install-recommends
+
+COPY /locale.gen /etc/
+
+RUN locale-gen
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "if (hash_file('sha384', 'composer-setup.php') === 'a5c698ffe4b8e849a443b120cd5ba38043260d5c4023dbf93e1558871f1f07f58274fc6f4c93bcfd858c6bd0775cd8d1') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
@@ -60,6 +58,22 @@ RUN yes | pecl install igbinary \
 
 RUN yes | pecl install redis \
     && docker-php-ext-enable redis
+
+# create users and groups for most common default uids
+RUN set -x \
+    && if ! getent group dev; then groupadd -g 1000 -r dev; \
+    useradd -u 1000 -m -s /bin/zsh -g dev dev; fi \
+    && if ! getent group docker; then groupadd -g 501 -r docker; \
+    useradd -u 501 -m -s /bin/zsh -g docker docker; fi
+
+COPY /home/* /home/dev/
+
+COPY /home/* /home/docker/
+
+RUN chown -R 1000:1000 /home/dev \
+    && chown -R 501:501 /home/docker
+
+COPY /dev.sh /etc/profile.d/
 
 RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/$version \

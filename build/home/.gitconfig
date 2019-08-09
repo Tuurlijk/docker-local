@@ -1,0 +1,73 @@
+[include]
+	path = ~/.config/git/config
+[transfer]
+	fsckObjects = true
+  # To combat repository corruption!
+  # Note: this global option applies during receive and transmit
+  # https://git-scm.com/docs/git-config#git-config-transferfsckObjects
+  # via https://groups.google.com/forum/#!topic/binary-transparency/f-BI4o8HZW0
+[giggle]
+	compact-mode = false
+	main-window-maximized = false
+	main-window-geometry = 1918x1182+1440+0
+[core]
+	excludesfile = ~/.gitignore
+	autocrlf = input
+	editor = vim
+#	autocrlf = input
+#	autocrlf = true
+#	whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+[color]
+	ui = auto
+	diff = true
+[color "branch"]
+	current = 214
+	local = 67
+	remote = 34
+[color "diff"]
+	meta = 214
+	frag = 67
+	old = 160
+	new = 34
+	whitespace = 160 reverse
+[color "status"]
+	added = 214
+	changed = 34
+	untracked = 67
+[alias]
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(214)%d%Creset %s %C34(%cr) %C(67)<%an>%Creset' --abbrev-commit --date=relative
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+	df = diff
+	dc = diff --cached
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+	ls = ls-files
+  tree = log --graph --decorate --pretty=oneline --abbrev-commit
+
+	# Show files ignored by git:
+	ign = ls-files -o -i --exclude-standard
+[branch]
+	autosetuprebase = remote
+[commit]
+	template = ~/.gitmessage.txt
+[diff "spaceman-diff"]
+  command = ~/bin/spaceman-diff
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
+[push]
+	default = simple
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[gpg]
+	program = /usr/local/bin/gpg
