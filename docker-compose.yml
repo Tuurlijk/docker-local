@@ -101,9 +101,7 @@ services:
 
   after_script:
     user: "${UID:-1000}:${GID:-1000}"
-    build:
-      context: ./build
-      dockerfile: ./php/Dockerfile
+    image: michielroos/php-fpm
     env_file:
       - ../.env
     volumes:
