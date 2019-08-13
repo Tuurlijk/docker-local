@@ -6,6 +6,8 @@ source /configuration/template/lib.sh
 
 wait_for_database
 
+e_header Setting up ${TEMPLATE}
+
 fix_permissions
 
 e_success All done

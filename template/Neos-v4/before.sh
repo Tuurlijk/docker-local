@@ -2,7 +2,7 @@
 
 source /configuration/template/lib.sh
 
-e_header Setting up Neos
+e_header Setting up ${TEMPLATE}
 
 copy_composer_json
 

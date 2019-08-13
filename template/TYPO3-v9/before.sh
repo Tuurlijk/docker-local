@@ -2,7 +2,7 @@
 
 source /configuration/template/lib.sh
 
-e_header Setting up TYPO3
+e_header Setting up ${TEMPLATE}
 
 enable_install_tool
 enable_first_install
