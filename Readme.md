@@ -216,6 +216,10 @@ This makes is possible to visit `prefix.dev.local` securely. If you want to use 
 
 You can regenerate your own custom authority and certificates using `.docker/bin/generateCertificate.sh`. The configuration files are in `.docker/web/sslConfig`. If you want to add a wildcard domain to the SAN list, run `.docker/bin/reGenerateCertificate.sh`.
 
+## Coll stuff
+
+[lazydocker](https://github.com/jesseduffield/lazydocker) cli tool for inspecting your docker environment
+
 ## Known Issues
 * Sometimes the var and Web directories get created with owner and group root. This breaks the installation.
 * Mariadb fails to set the configured charset on first image start. This may be a problem of the stock [MariaDb docker image](https://hub.docker.com/_/mariadb).
