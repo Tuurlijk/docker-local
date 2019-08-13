@@ -185,6 +185,17 @@ composer dump-database
 
 All containers are started within their own subnet. They can reach each other by the *service names* specified in `.docker/docker-compose.yml`. So the `php` machine can reference the `redis` machine by using hostname **redis**.
 
+Another option can be to mount the host's hosts file (readonly) onto the target machine.
+```yaml
+services:
+  php:
+    image: michielroos/php-fpm:7.2
+    volumes:
+      - /etc/hosts:/etc/hosts:ro
+```
+
+That will make the domain of the site available on the commandline of the container. This can be useful for test runs for example. 
+
 ## SSL support
 Import `.docker/web/ca/cacert.crt` into your browser. Allow it authenticate websites.
 This was generated using: https://gist.github.com/jchandra74/36d5f8d0e11960dd8f80260801109ab0
