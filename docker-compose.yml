@@ -121,17 +121,17 @@ services:
     depends_on:
       - before_script
 
-  ngrok:
-    image: wernight/ngrok
-    environment:
-      - NGROK_AUTH=${NGROK_AUTH:-nan}
-      - NGROK_PORT=${NGROK_PORT:-nan}
-      - NGROK_REGION=${NGROK_REGION:-eu}
-      - NGROK_BINDTLS=${NGROK_BINDTLS:-true}
-      - NGROK_USERNAME=${NGROK_USERNAME:-nan}
-      - NGROK_PASSWORD=${NGROK_PASSWORD:-}
-    depends_on:
-      - web
+#  ngrok:
+#    image: wernight/ngrok
+#    environment:
+#      - NGROK_AUTH=${NGROK_AUTH:-nan}
+#      - NGROK_PORT=${NGROK_PORT:-nan}
+#      - NGROK_REGION=${NGROK_REGION:-eu}
+#      - NGROK_BINDTLS=${NGROK_BINDTLS:-true}
+#      - NGROK_USERNAME=${NGROK_USERNAME:-nan}
+#      - NGROK_PASSWORD=${NGROK_PASSWORD:-}
+#    depends_on:
+#      - web
 
   hostmap:
     image: dvdarias/docker-hoster
