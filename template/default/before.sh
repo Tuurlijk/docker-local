@@ -4,7 +4,7 @@
 
 source /configuration/template/lib.sh
 
-e_header Setting up default
+e_header Setting up ${TEMPLATE}
 
 e_arrow Copying phpinfo file
 cp /configuration/template/${TEMPLATE}/index.php /build/Web

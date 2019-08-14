@@ -4,7 +4,7 @@ source /configuration/template/lib.sh
 
 wait_for_database
 
-e_header Setting up TYPO3
+e_header Setting up ${TEMPLATE}
 
 cd /var/www/html || exit
 

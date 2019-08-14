@@ -1,16 +1,6 @@
 <?php
 defined('TYPO3_MODE') or die('¯\_(ツ)_/¯');
 
-use Symfony\Component\Dotenv\Dotenv;
-
-$dotenv = new Dotenv();
-$dotenv->load(__DIR__ . '/../../.env');
-
-$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['host'] = 'db';
-$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'] = getenv('MYSQL_DATABASE');
-$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['user'] = getenv('MYSQL_USER');
-$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['password'] = getenv('MYSQL_PASSWORD');
-
 # Custom local dev configuration
 $GLOBALS['TYPO3_CONF_VARS']['BE']['debug'] = 1;
 $GLOBALS['TYPO3_CONF_VARS']['BE']['lockSSL'] = true;
