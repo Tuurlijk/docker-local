@@ -42,6 +42,8 @@ services:
   php:
     user: "${UID:-1000}:${GID:-1000}"
     image: michielroos/php-fpm:7.3
+    env_file:
+      - ../.env
     volumes:
       - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
       - ./php/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
@@ -68,6 +70,8 @@ services:
   php_xdebug:
     user: "${UID:-1000}:${GID:-1000}"
     image: michielroos/php-fpm:7.3-xdebug
+    env_file:
+      - ../.env
     volumes:
       - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
       - ./php_xdebug/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
