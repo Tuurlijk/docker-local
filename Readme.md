@@ -101,7 +101,7 @@ Choose from:
 * TYPO3-v8
 * TYPO3-v9
 * TYPO3-v10
-* Neos-4
+* Neos-v4
 
 Add your own templates in .docker/template/
 
