@@ -30,6 +30,7 @@ services:
 
   db:
     image: mariadb:latest
+    hostname: ${COMPOSE_PROJECT_NAME}_db
     env_file:
       - ../.env
     volumes:
@@ -42,6 +43,7 @@ services:
   php:
     user: "${UID:-1000}:${GID:-1000}"
     image: michielroos/php-fpm:7.3
+    hostname: ${COMPOSE_PROJECT_NAME}_php
     env_file:
       - ../.env
     volumes:
@@ -58,6 +60,7 @@ services:
   php_blackfire:
     user: "${UID:-1000}:${GID:-1000}"
     image: michielroos/php-fpm:7.3-blackfire
+    hostname: ${COMPOSE_PROJECT_NAME}_php_blackfire
     volumes:
       - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
       - ./php_blackfire/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
@@ -70,6 +73,7 @@ services:
   php_xdebug:
     user: "${UID:-1000}:${GID:-1000}"
     image: michielroos/php-fpm:7.3-xdebug
+    hostname: ${COMPOSE_PROJECT_NAME}_php_xdebug
     env_file:
       - ../.env
     volumes:
