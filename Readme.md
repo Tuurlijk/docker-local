@@ -214,6 +214,17 @@ The provided certificates have wildcards for:
 
 This makes is possible to visit `prefix.dev.local` securely. If you want to use the blackfire php backend, you can visit `prefix.blackfire.local` or `prefix.bf.local`.
 
+To make the certificates available for the whole OS, do something along the lines of:
+```bash
+sudo cp .docker/web/ca/cacert.crt /usr/local/share/ca-certificates/docker-local.crt
+sudo update-ca-certificates
+```
+Or, if you are on Arch:
+```bash
+sudo cp .docker/web/ca/cacert.crt etc/ca-certificates/trust-source/anchors/docker-local.crt
+sudo trust extract-compat
+```
+
 You can regenerate your own custom authority and certificates using `.docker/bin/generateCertificate.sh`. The configuration files are in `.docker/web/sslConfig`. If you want to add a wildcard domain to the SAN list, run `.docker/bin/reGenerateCertificate.sh`.
 
 ## Cool stuff
