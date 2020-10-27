@@ -85,7 +85,7 @@ fix_permissions() {
 }
 
 show_entry_points() {
-    e_header You can reach the your sites on the following urls:
+    e_header You can reach your sites on the following urls:
     
     e_arrow "Default PHP https://${COMPOSE_PROJECT_NAME}.dev.local        https://${COMPOSE_PROJECT_NAME}.dev.local/typo3"
     e_arrow "Blackfire   https://${COMPOSE_PROJECT_NAME}.blackfire.local  https://${COMPOSE_PROJECT_NAME}.blackfire.local/typo3"
