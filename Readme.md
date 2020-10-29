@@ -159,6 +159,23 @@ Server token
 
 *This option is commented out by default because you are better of setting it globally in your shell environment.*
 
+#### HOSTMAP_IMAGE
+By default the **[dvdarias/docker-hoster](https://hub.docker.com/r/dvdarias/docker-hoster)** image is started. This may give trouble if you start multiple environments. Docker-hoster does not seem to cope too well. An alternative is to start a standalone image that does docker dns like [kevinjqiu/resolvable](https://hub.docker.com/r/kevinjqiu/resolvable).
+
+If you opt for that, you can set **HOSTMAP_IMAGE** to **bash**.
+
+Example resolvable config:
+```
+version: "3"
+services:
+  resolvable:
+    image: kevinjqiu/resolvable
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - /etc/resolv.conf:/tmp/resolv.conf
+```
+
 ## Fixing permissions
 The most important thing here is to set up the proper permissions inside the containers so that nginx can read and php-fpm can read and write files.
 
