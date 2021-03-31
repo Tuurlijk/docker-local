@@ -169,11 +169,11 @@ services:
 #    depends_on:
 #      - web
 
-#  hostmap:
-#    image: ${HOSTMAP_IMAGE:-dvdarias/docker-hoster}
-#    volumes:
-#      - //var/run/docker.sock:/var/run/docker.sock:ro
-#      - ${HOSTS_FILE:-/etc/hosts}:/tmp/hosts
+  hostmap:
+    image: ${HOSTMAP_IMAGE:-dvdarias/docker-hoster}
+    volumes:
+      - //var/run/docker.sock:/var/run/docker.sock:ro
+      - ${HOSTS_FILE:-/etc/hosts}:/tmp/hosts
 
   logs:
     image: amir20/dozzle
