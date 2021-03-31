@@ -79,14 +79,9 @@ install_typo3() {
     fi
 }
 
-fix_permissions() {
-    e_arrow Ensuring the webserver can read the files
-    chmod -R ug+rwX,o+rX /var/www/html
-}
-
 show_entry_points() {
     e_header You can reach your sites on the following urls:
-    
+
     e_arrow "Default PHP https://${COMPOSE_PROJECT_NAME}.dev.local        https://${COMPOSE_PROJECT_NAME}.dev.local/typo3"
     e_arrow "Blackfire   https://${COMPOSE_PROJECT_NAME}.blackfire.local  https://${COMPOSE_PROJECT_NAME}.blackfire.local/typo3"
     e_arrow "Xdebug      https://${COMPOSE_PROJECT_NAME}.xdebug.local     https://${COMPOSE_PROJECT_NAME}.xdebug.local/typo3"

@@ -4,11 +4,23 @@ services:
     image: fholzer/nginx-brotli
     hostname: ${COMPOSE_PROJECT_NAME}.dev.local
     volumes:
-      - ./web/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ${HOSTS_FILE:-/etc/hosts}:/etc/hosts:ro
+      - ./global/group:/etc/group:ro
+      - ./global/group-:/etc/group-:ro
+      - ./global/passwd:/etc/passwd:ro
+      - ./global/passwd-:/etc/passwd-:ro
+      - ./web/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./web/nginx.default.conf:/etc/nginx/conf.d/default.conf:ro
       - ./web/ssl:/etc/nginx/ssl:ro
-      - ../:/var/www/html:ro
+      - $PWD:/var/www/html:ro
       - typo3tempRamdisk:/var/www/html/Web/typo3temp:ro
       - typo3varRamdisk:/var/www/html/var:ro
+      # Apache settings
+#      - ./web/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+#      - ./web/httpd.vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf:ro
+#      - ./web/ssl/private.rsa:/usr/local/apache2/conf/private.rsa:ro
+#      - ./web/ssl/public.crt:/usr/local/apache2/conf/public.crt:ro
+#      - ./web/ca/cacert.crt:/usr/local/apache2/conf/cacert.crt:ro
     networks:
       default:
         aliases:
@@ -32,7 +44,7 @@ services:
     image: mariadb:latest
     hostname: ${COMPOSE_PROJECT_NAME}_db
     env_file:
-      - ../.env
+      - $PWD/.env
     volumes:
       - dbRamdisk:/var/lib/mysql
       - ./db/mariadb.cnf:/etc/mysql/mariadb.cnf:ro
@@ -46,11 +58,16 @@ services:
     image: michielroos/php-fpm:7.3
     hostname: ${COMPOSE_PROJECT_NAME}_php
     env_file:
-      - ../.env
+      - $PWD/.env
     volumes:
+      - $PWD/:/var/www/html/
+      - ${HOSTS_FILE:-/etc/hosts}:/etc/hosts:ro
+      - ./global/group:/etc/group:ro
+      - ./global/group-:/etc/group-:ro
+      - ./global/passwd:/etc/passwd:ro
+      - ./global/passwd-:/etc/passwd-:ro
       - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
       - ./php/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
-      - ../:/var/www/html
       - typo3tempRamdisk:/var/www/html/Web/typo3temp
       - typo3varRamdisk:/var/www/html/var
       - ${HOME:-~}/.composer:/home/dev/.composer
@@ -59,28 +76,36 @@ services:
       - before_script
 
   php_blackfire:
-    user: "${UID:-1000}:${GID:-1000}"
     image: michielroos/php-fpm:7.3-blackfire
     hostname: ${COMPOSE_PROJECT_NAME}_php_blackfire
     volumes:
+      - $PWD/:/var/www/html/
+      - ${HOSTS_FILE:-/etc/hosts}:/etc/hosts:ro
+      - ./global/group:/etc/group:ro
+      - ./global/group-:/etc/group-:ro
+      - ./global/passwd:/etc/passwd:ro
+      - ./global/passwd-:/etc/passwd-:ro
       - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
       - ./php_blackfire/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
-      - ../:/var/www/html
       - typo3tempRamdisk:/var/www/html/Web/typo3temp
       - typo3varRamdisk:/var/www/html/var
     depends_on:
       - before_script
 
   php_xdebug:
-    user: "${UID:-1000}:${GID:-1000}"
     image: michielroos/php-fpm:7.3-xdebug
     hostname: ${COMPOSE_PROJECT_NAME}_php_xdebug
     env_file:
-      - ../.env
+      - $PWD/.env
     volumes:
+      - $PWD/:/var/www/html/
+      - ${HOSTS_FILE:-/etc/hosts}:/etc/hosts:ro
+      - ./global/group:/etc/group:ro
+      - ./global/group-:/etc/group-:ro
+      - ./global/passwd:/etc/passwd:ro
+      - ./global/passwd-:/etc/passwd-:ro
       - ./php/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-custom-fpm.conf:ro
       - ./php_xdebug/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
-      - ../:/var/www/html
       - typo3tempRamdisk:/var/www/html/Web/typo3temp
       - typo3varRamdisk:/var/www/html/var
     depends_on:
@@ -101,21 +126,23 @@ services:
     user: "${UID:-1000}:${GID:-1000}"
     image: bash:latest
     env_file:
-      - ../.env
+      - $PWD/.env
     volumes:
-      - ../:/build
+      - $PWD:/build
       - ./:/configuration
     entrypoint: /configuration/template/${TEMPLATE:-default}/before.sh
+    depends_on:
+      - before
 
   after_script:
     user: "${UID:-1000}:${GID:-1000}"
     image: michielroos/php-fpm:7.3
     env_file:
-      - ../.env
+      - $PWD/.env
     volumes:
       - ./:/configuration
       - ./php/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
-      - ../:/var/www/html
+      - $PWD:/var/www/html
       - ${HOME:-~}/.composer:/home/dev/.composer
       - ${HOME:-~}/.composer:/home/docker/.composer
       - typo3tempRamdisk:/var/www/html/Web/typo3temp
@@ -142,18 +169,32 @@ services:
 #    depends_on:
 #      - web
 
-  hostmap:
-    image: ${HOSTMAP_IMAGE:-dvdarias/docker-hoster}
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - /etc/hosts:/tmp/hosts
+#  hostmap:
+#    image: ${HOSTMAP_IMAGE:-dvdarias/docker-hoster}
+#    volumes:
+#      - //var/run/docker.sock:/var/run/docker.sock:ro
+#      - ${HOSTS_FILE:-/etc/hosts}:/tmp/hosts
 
   logs:
     image: amir20/dozzle
     environment:
-      - DOZZLE_FILTER=name=${COMPOSE_PROJECT_NAME}_(web|php*|db)_*
+      - DOZZLE_FILTER=name=${COMPOSE_PROJECT_NAME}_(web|php*|db|mail*|solr|redis)_*
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - //var/run/docker.sock:/var/run/docker.sock:ro
+
+  before:
+    user: "${UID:-1000}:${GID:-1000}"
+    image: bash:latest
+    env_file:
+      - $PWD/.env
+    volumes:
+      - $PWD/:/build
+      - ./:/configuration
+      - ./global/group:/etc/group
+      - ./global/group-:/etc/group-
+      - ./global/passwd:/etc/passwd
+      - ./global/passwd-:/etc/passwd-
+    entrypoint: /configuration/before/before.sh
 
 #  redis:
 #    image: redis:latest
