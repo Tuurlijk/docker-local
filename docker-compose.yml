@@ -42,12 +42,12 @@ services:
       - php_xdebug
 
   db:
-    image: mariadb:latest
+    image: mariadb
     container_name: ${COMPOSE_PROJECT_NAME}_db
     env_file:
       - $PWD/.env
     volumes:
-      - dbRamdisk:/var/lib/mysql
+      #- dbRamdisk:/var/lib/mysql
       - ./db/mariadb.cnf:/etc/mysql/mariadb.cnf:ro
       - ./db/mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf:ro
       - ./db:/docker-entrypoint-initdb.d/:ro
@@ -125,7 +125,7 @@ services:
 
   before_script:
     user: "${UID:-1000}:${GID:-1000}"
-    image: bash:latest
+    image: bash
     container_name: ${COMPOSE_PROJECT_NAME}_before_script
     env_file:
       - $PWD/.env
@@ -173,11 +173,11 @@ services:
 #    depends_on:
 #      - web
 
-  hostmap:
-    image: ${HOSTMAP_IMAGE:-dvdarias/docker-hoster}
-    container_name: ${COMPOSE_PROJECT_NAME}_hostmap
+  hosts:
+    image: ${HOSTS_IMAGE:-dvdarias/docker-hoster}
+    container_name: ${COMPOSE_PROJECT_NAME}_hosts
     volumes:
-      - //var/run/docker.sock:/var/run/docker.sock:ro
+      - //var/run/docker.sock:/tmp/docker.sock:ro
       - ${HOSTS_FILE:-/etc/hosts}:/tmp/hosts
 
   logs:
@@ -190,7 +190,7 @@ services:
 
   before:
     user: "${UID:-1000}:${GID:-1000}"
-    image: bash:latest
+    image: bash
     container_name: ${COMPOSE_PROJECT_NAME}_before
     env_file:
       - $PWD/.env
@@ -204,7 +204,7 @@ services:
     entrypoint: /configuration/before/before.sh
 
 #  redis:
-#    image: redis:latest
+#    image: redis
 #    container_name: ${COMPOSE_PROJECT_NAME}_redis
 
 volumes:
