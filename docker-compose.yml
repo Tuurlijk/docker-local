@@ -50,7 +50,7 @@ services:
       #- dbRamdisk:/var/lib/mysql
       - ./db/mariadb.cnf:/etc/mysql/mariadb.cnf:ro
       - ./db/mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf:ro
-      - ./db:/docker-entrypoint-initdb.d/:ro
+      - ./db/import:/docker-entrypoint-initdb.d/:ro
     depends_on:
       - before_script
 
