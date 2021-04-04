@@ -8,14 +8,14 @@ e_success() { echo -e "\033[1;32m✔\033[0m $@"; }
 
 # This is needed to ensure that the mountpoints are owned by the user and not by root
 create_ramdisk_mountpoints() {
-    if [[ -d /build && ! -d /build/Web/typo3temp ]] || [[ -d /build && ! -d /build/var ]]; then
+    if [[ -d /build && ! -d /build/public/typo3temp ]] || [[ -d /build && ! -d /build/var ]]; then
         e_arrow Creating ramdisk mountpoints
-        mkdir -p /build/Web/typo3temp /build/var
+        mkdir -p /build/public/typo3temp /build/var
     fi
 
-    if [[ -d /var/www/html && ! -d /var/www/html/Web/typo3temp ]] || [[ -d /var/www/html && ! -d /var/www/html/var ]]; then
+    if [[ -d /var/www/html && ! -d /var/www/html/public/typo3temp ]] || [[ -d /var/www/html && ! -d /var/www/html/var ]]; then
         e_arrow Creating ramdisk mountpoints
-        mkdir -p /var/www/html/Web/typo3temp /var/www/html/var
+        mkdir -p /var/www/html/public/typo3temp /var/www/html/var
     fi
 }
 
@@ -30,21 +30,21 @@ wait_for_database() {
 
 enable_install_tool() {
     e_arrow Enabling install tool
-    mkdir -p /build/Web/typo3conf
-    touch /build/Web/typo3conf/ENABLE_INSTALL_TOOL
+    mkdir -p /build/public/typo3conf
+    touch /build/public/typo3conf/ENABLE_INSTALL_TOOL
 }
 
 enable_first_install() {
-    if [ ! -f /build/Web/typo3conf/AdditionalConfiguration.php ]; then
+    if [ ! -f /build/public/typo3conf/AdditionalConfiguration.php ]; then
         e_arrow Creating FIRST_INSTALL file
-        touch /build/Web/FIRST_INSTALL
+        touch /build/public/FIRST_INSTALL
     fi
 }
 
 copy_additional_configuration() {
-    if [ ! -f /build/Web/typo3conf/AdditionalConfiguration.php ]; then
+    if [ ! -f /build/public/typo3conf/AdditionalConfiguration.php ]; then
         e_arrow Copying additional configuration
-        cp /configuration/template/${TEMPLATE}/typo3conf/AdditionalConfiguration.php /build/Web/typo3conf/
+        cp /configuration/template/${TEMPLATE}/typo3conf/AdditionalConfiguration.php /build/public/typo3conf/
     fi
 }
 

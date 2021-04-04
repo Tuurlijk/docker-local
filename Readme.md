@@ -64,8 +64,8 @@ alias off=down
 alias re='f(){ dev rm -fsv $@ && dev build $@ && dev up -d $@ && dev logs -f before_script after_script; unset -f f; }; f'
 alias offon=re
 alias ds="dev exec php bash -l"
-alias cf='e_header "Running typo3cms cache:flush"; ds -c "./Web/bin/typo3cms cache:flush"; e_success Done'
-alias ct='e_header "Clearing ./Web/typo3temp/*"; ds -c "echo removing \`find ./Web/typo3temp/ -type f | wc -l\` files; rm -rf ./Web/typo3temp/*"; e_success Done'
+alias cf='e_header "Running typo3cms cache:flush"; ds -c "./public/bin/typo3cms cache:flush"; e_success Done'
+alias ct='e_header "Clearing ./public/typo3temp/*"; ds -c "echo removing \`find ./public/typo3temp/ -type f | wc -l\` files; rm -rf ./public/typo3temp/*"; e_success Done'
 ```
 
 ## SSL support
@@ -246,7 +246,7 @@ The containers are ephemeral as suggested in [Best practices for writing Docker 
 
 *The image defined by your Dockerfile should generate containers that are as ephemeral as possible. By “ephemeral”, we mean that the container can be stopped and destroyed, then rebuilt and replaced with an absolute minimum set up and configuration.*
 
-Of course all the files in your project directory remain in place, but temporary stuff like `Web/typo3temp` and `var` run in ramdisk (tmpfs) volumes that will be removed when the machines stop.
+Of course all the files in your project directory remain in place, but temporary stuff like `public/typo3temp` and `var` run in ramdisk (tmpfs) volumes that will be removed when the machines stop.
 
 ## Cool stuff
 

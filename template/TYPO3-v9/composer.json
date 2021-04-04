@@ -33,7 +33,7 @@
   },
   "extra": {
     "typo3/cms": {
-      "web-dir": "Web",
+      "web-dir": "public",
       "cms-package-dir": "{$vendor-dir}/typo3/cms"
     }
   },
