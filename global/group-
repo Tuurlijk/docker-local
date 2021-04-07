@@ -1,5 +1,5 @@
 root:*:0:
-daemon:*:1000:
+daemon:*:1001:
 bin:*:2:
 sys:*:3:
 adm:*:4:
@@ -21,7 +21,7 @@ tape:*:26:
 sudo:*:27:
 audio:*:29:
 dip:*:30:
-www-data:*:1000:
+www-data:*:1002:
 backup:*:34:
 operator:*:37:
 list:*:38:
@@ -37,3 +37,4 @@ staff:*:50:
 games:*:60:
 users:*:100:
 nogroup:*:65534:
+dev:*:1000:

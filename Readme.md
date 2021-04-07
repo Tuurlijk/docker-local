@@ -31,6 +31,10 @@ You can see your uid and gid by doing `id -u` and `id -g`.
 ### Set the project name in .env
 
 Set up a project name in the `.env` file.
+```bash
+# Project name
+COMPOSE_PROJECT_NAME=my_great_project
+```
 
 ### Start the environment
 
@@ -39,11 +43,25 @@ Adjust other env vars if needed. When you are done, you can start the environmen
 docker-compose -f .docker/docker-compose.yml up
 ```
 
-### Aliases
-For extra ease of use you can create an alias:
+For ease of use you can create an alias:
 ```bash
 alias dc="docker-compose -f .docker/docker-compose.yml"
 ```
+
+### The service user
+
+The services in the `web` and `php*` containers run under user **dev**. If you want to login to the php container as that user you can do:
+
+```bash
+dev exec -u dev php /bin/bash
+```
+
+You can create an alias so you don't have to type the user out all the time.
+```bash
+alias de="dev exec -u dev"
+```
+
+### Aliases
 
 Bonus aliases:
 ```bash
@@ -63,7 +81,8 @@ alias on=up
 alias off=down
 alias re='f(){ dev rm -fsv $@ && dev build $@ && dev up -d $@ && dev logs -f before_script after_script; unset -f f; }; f'
 alias offon=re
-alias ds="dev exec php bash -l"
+alias ds="dev exec -u dev php bash -l"
+alias de="dev exec -u dev"
 alias cf='e_header "Running typo3cms cache:flush"; ds -c "./public/bin/typo3cms cache:flush"; e_success Done'
 alias ct='e_header "Clearing ./public/typo3temp/*"; ds -c "echo removing \`find ./public/typo3temp/ -type f | wc -l\` files; rm -rf ./public/typo3temp/*"; e_success Done'
 ```
@@ -119,7 +138,9 @@ Use a template to get an installation up quickly. Each template has a `before.sh
 
 Please keep in mind that you may need to tweak the MariaDb and PHP versions for the older TYPO3 versions.
 
-Choose from: 
+Choose from:
+* empty
+* default
 * TYPO3-v7
 * TYPO3-v8
 * TYPO3-v9

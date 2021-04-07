@@ -43,6 +43,7 @@ services:
 
   db:
     image: mariadb
+    hostname: ${COMPOSE_PROJECT_NAME}_db
     container_name: ${COMPOSE_PROJECT_NAME}_db
     env_file:
       - $PWD/.env
@@ -56,6 +57,7 @@ services:
 
   php:
     image: michielroos/php-fpm:7.3
+    hostname: ${COMPOSE_PROJECT_NAME}_php
     container_name: ${COMPOSE_PROJECT_NAME}_php
     env_file:
       - $PWD/.env
@@ -77,6 +79,7 @@ services:
 
   php_blackfire:
     image: michielroos/php-fpm:7.3-blackfire
+    hostname: ${COMPOSE_PROJECT_NAME}_php_blackfire
     container_name: ${COMPOSE_PROJECT_NAME}_php_blackfire
     volumes:
       - $PWD/:/var/www/html/
@@ -94,6 +97,7 @@ services:
 
   php_xdebug:
     image: michielroos/php-fpm:7.3-xdebug
+    hostname: ${COMPOSE_PROJECT_NAME}_php_xdebug
     container_name: ${COMPOSE_PROJECT_NAME}_php_xdebug
     env_file:
       - $PWD/.env
