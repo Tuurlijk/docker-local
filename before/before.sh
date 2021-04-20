@@ -6,7 +6,7 @@ e_success() { echo -e "\033[1;32m✔\033[0m $@"; }
 
 e_header Ensuring Mysql can read and write to the import / export folders
 
-chmod go+rX /configuration/db/import /configuration/db/dump
+chmod -R go+rX /configuration/db/import /configuration/db/dump
 
 e_header Setting user id to ${UID:-1000} and group id to ${GID:-1000}
 
