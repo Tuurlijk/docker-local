@@ -101,9 +101,10 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}_php_xdebug
     env_file:
       - $PWD/.env
+    environment:
+      - PHP_IDE_CONFIG=serverName=${COMPOSE_PROJECT_NAME}
     volumes:
       - $PWD/:/var/www/html/
-      - ${HOSTS_FILE:-/etc/hosts}:/etc/hosts:ro
       - ./global/group:/etc/group:ro
       - ./global/group-:/etc/group-:ro
       - ./global/passwd:/etc/passwd:ro
@@ -114,6 +115,8 @@ services:
       - typo3varRamdisk:/var/www/html/var
     depends_on:
       - before_script
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   blackfire:
     image: blackfire/blackfire
