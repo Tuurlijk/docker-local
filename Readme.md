@@ -269,6 +269,9 @@ The containers are ephemeral as suggested in [Best practices for writing Docker 
 
 Of course all the files in your project directory remain in place, but temporary stuff like `public/typo3temp` and `var` run in ramdisk (tmpfs) volumes that will be removed when the machines stop.
 
+## PHPStorm Xdebug
+In `docker-compose.yml` an environment variable is set: `PHP_IDE_CONFIG=serverName=${COMPOSE_PROJECT_NAME}`. Make sure that you have this [server configured in PHPStorm](https://www.jetbrains.com/help/phpstorm/servers.html).
+
 ## Cool stuff
 
 [lazydocker](https://github.com/jesseduffield/lazydocker) cli tool for inspecting your docker environment
