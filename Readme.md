@@ -21,13 +21,47 @@ Pull requests are welcome ;-)
 mkdir project && cd project
 git clone https://github.com/Tuurlijk/docker-local.git .docker
 cp .docker/.env .
+```
+
+### Make sure the containers can read and write your files
+The different container processes run under different user ids. The containers must be able to read, and some must be able to write host files mounted as volumes inside the container. The default user and group id's the processes are set to run as are 1000 and 1000. If your uid and gid are not `1000`, set the `UID` and `GID` env vars in the `.env` file.
+
+You can see your uid and gid by doing `id -u` and `id -g`.
+
+### Set the project name in .env
+
+Set up a project name in the `.env` file.
+```bash
+# Project name
+COMPOSE_PROJECT_NAME=my_great_project
+```
+
+### Start the environment
+
+Adjust other env vars if needed. When you are done, you can start the environment with:
+```bash
 docker-compose -f .docker/docker-compose.yml up
 ```
 
-Fo extra ease of use you can create an alias:
+For ease of use you can create an alias:
 ```bash
 alias dc="docker-compose -f .docker/docker-compose.yml"
 ```
+
+### The service user
+
+The services in the `web` and `php*` containers run under user **dev**. If you want to login to the php container as that user you can do:
+
+```bash
+dev exec -u dev php /bin/bash
+```
+
+You can create an alias so you don't have to type the user out all the time.
+```bash
+alias de="dev exec -u dev"
+```
+
+### Aliases
 
 Bonus aliases:
 ```bash
@@ -47,36 +81,42 @@ alias on=up
 alias off=down
 alias re='f(){ dev rm -fsv $@ && dev build $@ && dev up -d $@ && dev logs -f before_script after_script; unset -f f; }; f'
 alias offon=re
-alias ds="dev exec php bash -l"
-alias cf='e_header "Running typo3cms cache:flush"; ds -c "./Web/bin/typo3cms cache:flush"; e_success Done'
-alias ct='e_header "Clearing ./Web/typo3temp/*"; ds -c "echo removing \`find ./Web/typo3temp/ -type f | wc -l\` files; rm -rf ./Web/typo3temp/*"; e_success Done'
-alias docker-wraith="docker run --rm -P -v \$PWD:/wraithy -w='/wraithy' bbcnews/wraith"
+alias ds="dev exec -u dev php bash -l"
+alias de="dev exec -u dev"
+alias cf='e_header "Running typo3cms cache:flush"; ds -c "./public/bin/typo3cms cache:flush"; e_success Done'
+alias ct='e_header "Clearing ./public/typo3temp/*"; ds -c "echo removing \`find ./public/typo3temp/ -type f | wc -l\` files; rm -rf ./public/typo3temp/*"; e_success Done'
 ```
 
-## Ephemeral
+## SSL support
+Import `.docker/web/ca/cacert.crt` into your browser. Allow it authenticate websites.
+This was generated using: https://gist.github.com/jchandra74/36d5f8d0e11960dd8f80260801109ab0
 
-The containers are ephemeral as suggested in [Best practices for writing Docker files](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
+The provided certificates have wildcards for:
+* *.dev.local
+* *.blackfire.local
+* *.black.local
+* *.fire.local
+* *.bf.local
+* *.xdebug.local
+* *.debug.local
+* *.xdbg.local
+* *.mail.local
+* *.logs.local
 
-*The image defined by your Dockerfile should generate containers that are as ephemeral as possible. By “ephemeral”, we mean that the container can be stopped and destroyed, then rebuilt and replaced with an absolute minimum set up and configuration.*
+This makes is possible to visit `prefix.dev.local` securely. If you want to use the blackfire php backend, you can visit `prefix.blackfire.local` or `prefix.bf.local`.
 
-Of course all the files in your project directory remain in place, but temporary stuff like `Web/typo3temp` and `var` run in ramdisk (tmpfs) volumes that will be removed when the machines stop.
+To make the certificates available for the whole OS, do something along the lines of:
+```bash
+sudo cp .docker/web/ca/cacert.crt /usr/local/share/ca-certificates/docker-local.crt
+sudo update-ca-certificates
+```
+Or, if you are on Arch:
+```bash
+sudo cp .docker/web/ca/cacert.crt etc/ca-certificates/trust-source/anchors/docker-local.crt
+sudo trust extract-compat
+```
 
-The database also runs in a tmpfs volume. If you want to save it, please use `./.docker/bin/dump.sh`. This will create a gzipped dump in `.docker/db/` that will be automatically re-imported into the db instance when it starts again.
-
-If your database is so big that it takes too much time to import it often, consider using a regular docker volume for the database:
-
-```yaml
-  db:
-    image: mariadb:latest
-    env_file:
-      - ../.env
-    volumes:
-      - ./db:/docker-entrypoint-initdb.d/:ro
-      - ./db/mysql.cnf:/etc/mysql/mariadb.conf.d/zzz-custom.cnf:ro
-      - ./db/lib/mysql:/var/lib/mysql
-``` 
-
-This will store the database in `.docker/db/lib/mysql`. Make sure you create `.docker/db/lib/mysql` or the machine will not start ;-)
+You can regenerate your own custom authority and certificates using `.docker/bin/generateCertificate.sh`. The configuration files are in `.docker/web/sslConfig`. If you want to add a wildcard domain to the SAN list, run `.docker/bin/reGenerateCertificate.sh`.
 
 ## Configuration
 Each container may use configuration files from the `.docker` folder.
@@ -91,12 +131,16 @@ The project name is used in the domain names of the http containers:
 * [prefix.mail.local](https://prefix.mail.local) - Mailhog
 * [prefix.logs.local](https://prefix.logs.local) - Dozzle
 
+All environments are started within their own subnet. They can reach each other by the *service name* or *container_name* specified in `.docker/docker-compose.yml`. So the `php` machine can reference the `redis` machine by using hostname **redis** or **container_name: ${COMPOSE_PROJECT_NAME}_web**. So if your project name is **babel** the `php` machine can reach the `redis` machine by using **babel_redis** as hostname.
+
 ### TEMPLATE ###
 Use a template to get an installation up quickly. Each template has a `before.sh` file to set up the environment before any machine starts and an `after.sh` file to set up the environment after the machines have started. This may fix permissions and copy over files like composer.json and AdditionalConfiguration.php.
 
 Please keep in mind that you may need to tweak the MariaDb and PHP versions for the older TYPO3 versions.
 
-Choose from: 
+Choose from:
+* empty
+* default
 * TYPO3-v7
 * TYPO3-v8
 * TYPO3-v9
@@ -176,73 +220,57 @@ services:
       - /etc/resolv.conf:/tmp/resolv.conf
 ```
 
-## Fixing permissions
-The most important thing here is to set up the proper permissions inside the containers so that nginx can read and php-fpm can read and write files.
+## Scripts
+There are a few helper scripts in `.docker/bin`. Most of these are meant to be executed from the project root (where the .env file is stored).
 
-You can see your uid and gid by doing `id -u` and `id -g`.
-
-On many systems these values will be `1000`. Now we need to make sure that the PHP process runs as that user and group so it can read and write files in your web directory.
-
-If your uid and gid differ from 1000, set the `UID` and `GID` env vars in the `.env` file.
-
-## Importing a database
-Any files in `.docker/db/` ending in `tar.gz` or `gz` will be imported.
-
-## Dumping a database
+### Dumping a database
 There is a script in `.docker/bin/` called `dump.sh`. It uses the database credentials defined in the `.env` file to dump the database from the database host. You can execute it by doing:
 ```bash
-composer dd
-# Or
-composer dump-database
-# Or
 ./.docker/bin/dump.sh
 ```
+The database dump will be stored in `.docker/db/dump`.
 
-## Host naming inside the containers
+### Importing a database
+There is a script in `.docker/bin/` called `import.sh`. It uses the database credentials defined in the `.env` file to import a database to the database host. You can execute it by doing:
+```bash
+./.docker/bin/import.sh dumpfile.sql.gz
+```
 
-All containers are started within their own subnet. They can reach each other by the *service names* specified in `.docker/docker-compose.yml`. So the `php` machine can reference the `redis` machine by using hostname **redis**.
+### Automatically importing a database
+Any files in `.docker/db/import` ending in `tar.gz`, `sql` or `gz` will be imported. This can be of use to you if you wish to execute SQL on each run of the db container. Also nice if you want to run a databbase in ram, because then you will need to re-import the data on each run of the container.
 
-Another option can be to mount the host's hosts file (readonly) onto the target machine.
-```yaml
-services:
-  php:
-    image: michielroos/php-fpm:7.2
+## Run database in ram
+The database in the container is already pretty fast if you have a ssd, But if you want more speed, you can run it in ram.
+
+The database can run in a tmpfs volume. If you want to save it, please use `./.docker/bin/dump.sh`. This will create a gzipped dump in `.docker/db/dump`.
+
+If you want to run the db in ram uncomment the **dbRamdisk** line:
+
+```bash
+  db:
+    image: mariadb
+    container_name: ${COMPOSE_PROJECT_NAME}_db
+    env_file:
+      - $PWD/.env
     volumes:
-      - /etc/hosts:/etc/hosts:ro
+      #- dbRamdisk:/var/lib/mysql
+      - ./db/mariadb.cnf:/etc/mysql/mariadb.cnf:ro
+      - ./db/mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf:ro
+      - ./db:/docker-entrypoint-initdb.d/:ro
+    depends_on:
+      - before_script
 ```
 
-That will make the domain of the site available on the commandline of the container. This can be useful for test runs for example. 
+## Ephemeral
 
-## SSL support
-Import `.docker/web/ca/cacert.crt` into your browser. Allow it authenticate websites.
-This was generated using: https://gist.github.com/jchandra74/36d5f8d0e11960dd8f80260801109ab0
+The containers are ephemeral as suggested in [Best practices for writing Docker files](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 
-The provided certificates have wildcards for:
-* *.dev.local
-* *.blackfire.local
-* *.black.local
-* *.fire.local
-* *.bf.local
-* *.xdebug.local
-* *.debug.local
-* *.xdbg.local
-* *.mail.local
-* *.logs.local
+*The image defined by your Dockerfile should generate containers that are as ephemeral as possible. By “ephemeral”, we mean that the container can be stopped and destroyed, then rebuilt and replaced with an absolute minimum set up and configuration.*
 
-This makes is possible to visit `prefix.dev.local` securely. If you want to use the blackfire php backend, you can visit `prefix.blackfire.local` or `prefix.bf.local`.
+Of course all the files in your project directory remain in place, but temporary stuff like `public/typo3temp` and `var` run in ramdisk (tmpfs) volumes that will be removed when the machines stop.
 
-To make the certificates available for the whole OS, do something along the lines of:
-```bash
-sudo cp .docker/web/ca/cacert.crt /usr/local/share/ca-certificates/docker-local.crt
-sudo update-ca-certificates
-```
-Or, if you are on Arch:
-```bash
-sudo cp .docker/web/ca/cacert.crt etc/ca-certificates/trust-source/anchors/docker-local.crt
-sudo trust extract-compat
-```
-
-You can regenerate your own custom authority and certificates using `.docker/bin/generateCertificate.sh`. The configuration files are in `.docker/web/sslConfig`. If you want to add a wildcard domain to the SAN list, run `.docker/bin/reGenerateCertificate.sh`.
+## PHPStorm Xdebug
+In `docker-compose.yml` an environment variable is set: `PHP_IDE_CONFIG=serverName=${COMPOSE_PROJECT_NAME}`. Make sure that you have this [server configured in PHPStorm](https://www.jetbrains.com/help/phpstorm/servers.html). The **name** of the server must be the value of your `COMPOSE_PROJECT_NAME`.
 
 ## Cool stuff
 
