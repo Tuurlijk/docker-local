@@ -43,6 +43,3 @@ innodb_log_buffer_size = 256M
 innodb_log_file_size = 1G
 innodb_thread_concurrency = 8
 innodb_write_io_threads = 16
-
-# Import all .cnf files from configuration directory
-!includedir /etc/mysql/mariadb.conf.d/

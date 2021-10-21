@@ -49,8 +49,8 @@ services:
       - $PWD/.env
     volumes:
       #- dbRamdisk:/var/lib/mysql
-      - ./db/mariadb.cnf:/etc/mysql/mariadb.cnf:ro
-      - ./db/mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf:ro
+      - ./db/mariadb.cnf:/etc/mysql/conf.d/zz-my-mariadb.cnf:ro
+      - ./db/mariadb.cnf:/etc/mysql/mysql.d/zz-my-mariadb.cnf:ro
       - ./db/import:/docker-entrypoint-initdb.d/:ro
     depends_on:
       - before_script
