@@ -26,7 +26,9 @@ cat /tmp/group- > /etc/group-
 e_header Setting up nginx default configuration
 cp /configuration/web/nginx.default.conf.tmpl /configuration/web/nginx.default.conf
 sed -i "s/\${COMPOSE_PROJECT_NAME}/${COMPOSE_PROJECT_NAME}/g" /configuration/web/nginx.default.conf
+sed -i "s|\${TYPO3_CONTEXT}|${TYPO3_CONTEXT}|g" /configuration/web/nginx.default.conf
 cp /configuration/web/nginx.conf.tmpl /configuration/web/nginx.conf
 sed -i "s/\${COMPOSE_PROJECT_NAME}/${COMPOSE_PROJECT_NAME}/g" /configuration/web/nginx.conf
+sed -i "s|\${TYPO3_CONTEXT}|${TYPO3_CONTEXT}|g" /configuration/web/nginx.conf
 
 e_success All done

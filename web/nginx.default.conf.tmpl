@@ -44,6 +44,15 @@ server {
         try_files $uri $uri/ /index.php$is_args$args;
     }
 
+    # TYPO3 Backend URLs
+    location = /typo3 {
+        rewrite ^ /typo3/;
+    }
+    
+    location /typo3/ {
+        try_files $uri /typo3/index.php$is_args$args;
+    }
+
     location ~ \.php$ {
         try_files     $uri =404;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
@@ -57,10 +66,9 @@ server {
         }
         fastcgi_index index.php;
         include       fastcgi_params;
-        fastcgi_param FLOW_CONTEXT Development;
-        fastcgi_param SIMPLESAMLPHP_CONFIG_DIR /var/www/html/config/saml/config;
+        fastcgi_param FLOW_CONTEXT ${TYPO3_CONTEXT};
         fastcgi_param FLOW_REWRITEURLS 1;
-        fastcgi_param TYPO3_CONTEXT Development;
+        fastcgi_param TYPO3_CONTEXT ${TYPO3_CONTEXT};
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param PATH_INFO $fastcgi_path_info;
 
@@ -113,6 +121,15 @@ server {
 
         try_files $uri $uri/ /index.php$is_args$args;
     }
+    
+    # TYPO3 Backend URLs
+    location = /typo3 {
+        rewrite ^ /typo3/;
+    }
+    
+    location /typo3/ {
+        try_files $uri /typo3/index.php$is_args$args;
+    }
 
     location ~ \.php$ {
         try_files     $uri =404;
@@ -127,9 +144,9 @@ server {
         }
         fastcgi_index index.php;
         include       fastcgi_params;
-        fastcgi_param FLOW_CONTEXT Development;
+        fastcgi_param FLOW_CONTEXT ${TYPO3_CONTEXT};
         fastcgi_param FLOW_REWRITEURLS 1;
-        fastcgi_param TYPO3_CONTEXT Development;
+        fastcgi_param TYPO3_CONTEXT ${TYPO3_CONTEXT};
         fastcgi_param SIMPLESAMLPHP_CONFIG_DIR /var/www/html/config/saml/config;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param PATH_INFO $fastcgi_path_info;

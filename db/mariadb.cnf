@@ -34,7 +34,7 @@ tmpdir = /dev/shm
 
 # https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html
 #innodb_buffer_pool_size = 6G
-innodb_checksum_algorithm = NONE
+#innodb_checksum_algorithm = NONE
 innodb_doublewrite = 0
 innodb_file_per_table
 innodb_flush_log_at_trx_commit = 2

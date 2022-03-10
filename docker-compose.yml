@@ -42,7 +42,7 @@ services:
       - php_xdebug
 
   db:
-    image: mariadb
+    image: mariadb:10.5
     hostname: ${COMPOSE_PROJECT_NAME}_db
     container_name: ${COMPOSE_PROJECT_NAME}_db
     env_file:
@@ -56,7 +56,7 @@ services:
       - before_script
 
   php:
-    image: michielroos/php-fpm:7.3
+    image: michielroos/php-fpm:7.4
     hostname: ${COMPOSE_PROJECT_NAME}_php
     container_name: ${COMPOSE_PROJECT_NAME}_php
     env_file:
@@ -78,7 +78,7 @@ services:
       - before_script
 
   php_blackfire:
-    image: michielroos/php-fpm:7.3-blackfire
+    image: michielroos/php-fpm:7.4-blackfire
     hostname: ${COMPOSE_PROJECT_NAME}_php_blackfire
     container_name: ${COMPOSE_PROJECT_NAME}_php_blackfire
     volumes:
@@ -96,7 +96,7 @@ services:
       - before_script
 
   php_xdebug:
-    image: michielroos/php-fpm:7.3-xdebug
+    image: michielroos/php-fpm:7.4-xdebug
     hostname: ${COMPOSE_PROJECT_NAME}_php_xdebug
     container_name: ${COMPOSE_PROJECT_NAME}_php_xdebug
     env_file:
@@ -145,7 +145,7 @@ services:
 
   after_script:
     user: "${UID:-1000}:${GID:-1000}"
-    image: michielroos/php-fpm:7.3
+    image: michielroos/php-fpm:7.4
     container_name: ${COMPOSE_PROJECT_NAME}_after_script
     env_file:
       - $PWD/.env
