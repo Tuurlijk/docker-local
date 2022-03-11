@@ -84,6 +84,8 @@ server {
 
     listen 443 default_server ssl http2;
     index index.php index.html;
+    set $upstream php;
+    server_name ~^(?<prefix>.+)\.(?<backendKey>xdebug|debug|xdbg|blackfire|black|fire|bf|mail|dev|logs)\.local$;
     if ($backendKey ~ (blackfire|bf|black|fire)) {
         set $upstream ${COMPOSE_PROJECT_NAME}_blackfire;
     }
