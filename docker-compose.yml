@@ -226,6 +226,18 @@ services:
 #    image: redis
 #    container_name: ${COMPOSE_PROJECT_NAME}_redis
 
+#  chrome:
+#    image: robcherry/docker-chromedriver
+#    hostname: ${COMPOSE_PROJECT_NAME}_chrome
+#    container_name: ${COMPOSE_PROJECT_NAME}_chrome
+#    environment:
+#       CHROMEDRIVER_WHITELISTED_IPS: ""
+#       CHROMEDRIVER_PORT: "9515"
+#    ports:
+#       - 9515:9515
+#    cap_add:
+#       - "SYS_ADMIN"
+
 volumes:
   dbRamdisk:
     driver_opts:
