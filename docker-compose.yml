@@ -42,13 +42,14 @@ services:
       - php_xdebug
 
   db:
-    image: mariadb:10.5
+    image: mariadb:10.0.38
     hostname: ${COMPOSE_PROJECT_NAME}_db
     container_name: ${COMPOSE_PROJECT_NAME}_db
     env_file:
       - $PWD/.env
     volumes:
       #- dbRamdisk:/var/lib/mysql
+      - $PWD/.docker/db/mysql:/var/lib/mysql
       - ./db/mariadb.cnf:/etc/mysql/conf.d/zz-my-mariadb.cnf:ro
       - ./db/mariadb.cnf:/etc/mysql/mysql.d/zz-my-mariadb.cnf:ro
       - ./db/import:/docker-entrypoint-initdb.d/:ro
@@ -61,6 +62,8 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}_php
     env_file:
       - $PWD/.env
+    environment:
+      - TYPO3_CONTEXT=${TYPO3_CONTEXT:-Development/Developer}
     volumes:
       - $PWD/:/var/www/html/
       - ${HOSTS_FILE:-/etc/hosts}:/etc/hosts:ro
@@ -81,6 +84,10 @@ services:
     image: michielroos/php-fpm:7.4-blackfire
     hostname: ${COMPOSE_PROJECT_NAME}_php_blackfire
     container_name: ${COMPOSE_PROJECT_NAME}_php_blackfire
+    env_file:
+      - $PWD/.env
+    environment:
+      - TYPO3_CONTEXT=${TYPO3_CONTEXT:-Development/Developer}
     volumes:
       - $PWD/:/var/www/html/
       - ${HOSTS_FILE:-/etc/hosts}:/etc/hosts:ro
@@ -102,6 +109,7 @@ services:
     env_file:
       - $PWD/.env
     environment:
+      - TYPO3_CONTEXT=${TYPO3_CONTEXT:-Development/Developer}
       - PHP_IDE_CONFIG=serverName=${COMPOSE_PROJECT_NAME}
     volumes:
       - $PWD/:/var/www/html/
@@ -136,6 +144,8 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}_before_script
     env_file:
       - $PWD/.env
+    environment:
+      - TYPO3_CONTEXT=${TYPO3_CONTEXT:-Development/Developer}
     volumes:
       - $PWD:/build
       - ./:/configuration
@@ -201,6 +211,8 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}_before
     env_file:
       - $PWD/.env
+    environment:
+      - TYPO3_CONTEXT=${TYPO3_CONTEXT:-Development/Developer}
     volumes:
       - $PWD/:/build
       - ./:/configuration
