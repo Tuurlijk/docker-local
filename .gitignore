@@ -7,3 +7,4 @@
 !/docker-compose.override.yml
 /web/nginx.default.conf
 /web/nginx.conf
+/docker-compose.override.yml
