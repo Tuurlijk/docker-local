@@ -5,3 +5,5 @@
 /web/ca/tmp/
 /docker-compose.*.yml
 !/docker-compose.override.yml
+/web/nginx.default.conf
+/web/nginx.conf
