@@ -20,8 +20,8 @@ create_ramdisk_mountpoints() {
 }
 
 wait_for_database() {
-    e_header Waiting for db to come up
-    while ! mysql -h db -u root -p${MYSQL_ROOT_PASSWORD} -e status &> /dev/null ; do
+    e_header Waiting for database in container ${COMPOSE_PROJECT_NAME}_db to come up
+    while ! mysql -h ${COMPOSE_PROJECT_NAME}_db -u ${MYSQL_USER} -p${MYSQL_PASSWORD} -e status &> /dev/null ; do
         sleep 1
     done
 
