@@ -3,82 +3,6 @@ server {
     brotli_types text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript;
 
     listen 80 default_server;
-    index index.php index.html;
-    set $upstream php;
-    server_name ~^(?<prefix>.+)\.(?<backendKey>xdebug|debug|xdbg|blackfire|black|fire|bf|mail|dev|logs)\.local$;
-    if ($backendKey ~ (blackfire|bf|black|fire)) {
-        set $upstream blackfire;
-    }
-    if ($backendKey ~ (xdebug|debug|xdbg)) {
-        set $upstream xdebug;
-    }
-
-    tcp_nodelay on;
-
-    client_max_body_size 512M;
-
-    add_header 'X-PHP-Backend' $upstream;
-    add_header 'X-UA-Compatible' 'IE=edge,chrome=1';
-    root /var/www/html/public;
-
-    location = /favicon.ico {
-        log_not_found off;
-        access_log off;
-        break;
-    }
-
-    # Support version number in filename
-    if (!-e $request_filename) {
-        rewrite ^/(.+)\.(\d\d\d\d\d+)\.(cur|ico|php|js|css|png|jpe?g|gif|gzip|ttf|woff|eot)$ /$1.$3 last;
-    }
-
-    location / {
-        if ($backendKey = mail) {
-            proxy_pass http://${COMPOSE_PROJECT_NAME}_mailhog:8025;
-        }
-
-        if ($backendKey = logs) {
-            proxy_pass http://${COMPOSE_PROJECT_NAME}_logs:8080;
-        }
-
-        try_files $uri $uri/ /index.php$is_args$args;
-    }
-
-    # TYPO3 Backend URLs
-    location = /typo3 {
-        rewrite ^ /typo3/;
-    }
-    
-    location /typo3/ {
-        try_files $uri /typo3/index.php$is_args$args;
-    }
-
-    location ~ \.php$ {
-        try_files               $uri =404;
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_read_timeout    300;
-        fastcgi_pass            ${COMPOSE_PROJECT_NAME}_php:9000;
-        if ($upstream = blackfire) {
-            fastcgi_pass  ${COMPOSE_PROJECT_NAME}_php_blackfire:9000;
-        }
-        if ($upstream = xdebug) {
-            fastcgi_pass  ${COMPOSE_PROJECT_NAME}_php_xdebug:9000;
-        }
-        fastcgi_index           index.php;
-        include                 fastcgi_params;
-        fastcgi_param           FLOW_CONTEXT        ${TYPO3_CONTEXT};
-        fastcgi_param           FLOW_REWRITEURLS    1;
-        fastcgi_param           TYPO3_CONTEXT       ${TYPO3_CONTEXT};
-        fastcgi_param           SCRIPT_FILENAME     $document_root$fastcgi_script_name;
-        fastcgi_param           PATH_INFO           $fastcgi_path_info;
-
-    }
-}
-
-server {
-    brotli on;
-    brotli_types text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript;
-
     listen 443 default_server ssl http2;
     index index.php index.html;
     set $upstream php;
@@ -120,12 +44,12 @@ server {
 
         try_files $uri $uri/ /index.php$is_args$args;
     }
-    
+
     # TYPO3 Backend URLs
     location = /typo3 {
         rewrite ^ /typo3/;
     }
-    
+
     location /typo3/ {
         try_files $uri /typo3/index.php$is_args$args;
     }
