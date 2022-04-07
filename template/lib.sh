@@ -6,19 +6,6 @@ e_header()  { echo -e "\n\033[1m$@\033[0m"; }
 e_arrow()   { echo -e "\033[1;34m➜\033[0m $@"; }
 e_success() { echo -e "\033[1;32m✔\033[0m $@"; }
 
-# This is needed to ensure that the mountpoints are owned by the user and not by root
-create_ramdisk_mountpoints() {
-    if [[ -d /build && ! -d /build/public/typo3temp ]] || [[ -d /build && ! -d /build/var ]]; then
-        e_arrow Creating ramdisk mountpoints
-        mkdir -p /build/public/typo3temp /build/var
-    fi
-
-    if [[ -d /var/www/html && ! -d /var/www/html/public/typo3temp ]] || [[ -d /var/www/html && ! -d /var/www/html/var ]]; then
-        e_arrow Creating ramdisk mountpoints
-        mkdir -p /var/www/html/public/typo3temp /var/www/html/var
-    fi
-}
-
 wait_for_database() {
     e_header Waiting for database in container ${COMPOSE_PROJECT_NAME}_db to come up
     while ! mysql -h ${COMPOSE_PROJECT_NAME}_db -u ${MYSQL_USER} -p${MYSQL_PASSWORD} -e status &> /dev/null ; do
@@ -82,13 +69,11 @@ install_typo3() {
 show_entry_points() {
     e_header You can reach your sites on the following urls:
 
-    e_arrow "Default PHP https://${COMPOSE_PROJECT_NAME}.dev.local        https://${COMPOSE_PROJECT_NAME}.dev.local/typo3"
-    e_arrow "Blackfire   https://${COMPOSE_PROJECT_NAME}.blackfire.local  https://${COMPOSE_PROJECT_NAME}.blackfire.local/typo3"
-    e_arrow "Xdebug      https://${COMPOSE_PROJECT_NAME}.xdebug.local     https://${COMPOSE_PROJECT_NAME}.xdebug.local/typo3"
-    e_arrow "Mailhog     https://${COMPOSE_PROJECT_NAME}.mail.local"
-    e_arrow "Dozzle      https://${COMPOSE_PROJECT_NAME}.logs.local"
+    e_arrow "Web + PHP            https://${COMPOSE_PROJECT_NAME}.dev.local        https://${COMPOSE_PROJECT_NAME}.dev.local/typo3"
+    e_arrow "Web + PHP-Blackfire  https://${COMPOSE_PROJECT_NAME}.blackfire.local  https://${COMPOSE_PROJECT_NAME}.blackfire.local/typo3"
+    e_arrow "Web + PHP-Xdebug     https://${COMPOSE_PROJECT_NAME}.xdebug.local     https://${COMPOSE_PROJECT_NAME}.xdebug.local/typo3"
+    e_arrow "Mail                 https://${COMPOSE_PROJECT_NAME}.mail.local"
+    e_arrow "Docker Logs          https://${COMPOSE_PROJECT_NAME}.logs.local"
 
     echo
 }
-
-create_ramdisk_mountpoints

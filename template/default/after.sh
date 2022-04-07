@@ -4,8 +4,6 @@
 
 source /configuration/template/lib.sh
 
-wait_for_database
-
 e_header Setting up ${TEMPLATE}
 
 e_success All done
