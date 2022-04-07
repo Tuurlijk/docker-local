@@ -162,6 +162,22 @@ services:
       - web
     entrypoint: /configuration/template/${TEMPLATE:-default}/after.sh
 
+  after_script_super:
+    image: tuurlijk/php-fpm:${PHP_VERSION:-7.4}
+    container_name: ${COMPOSE_PROJECT_NAME}_after_script_super
+    env_file:
+      - $PWD/.env
+    volumes:
+      - ./:/configuration
+      - ./php/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
+      - $PWD/.docker/db/mysql:/var/lib/mysql
+      - $PWD:/var/www/html
+      - ${HOME:-~}/.composer:/home/dev/.composer
+      - ${HOME:-~}/.composer:/home/docker/.composer
+    depends_on:
+      - web
+    entrypoint: /configuration/template/${TEMPLATE:-default}/after_super.sh
+
   mailhog:
     image: mailhog/mailhog
     container_name: ${COMPOSE_PROJECT_NAME}_mailhog
