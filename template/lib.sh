@@ -15,6 +15,13 @@ wait_for_database() {
     e_success Database is up
 }
 
+ensure_read_access_to_db_folder() {
+  if [ -d "/var/lib/mysql" ]; then
+    e_arrow Giving host user access to database folder
+    chown -R :${GID:-1000} /var/lib/mysql
+  fi
+}
+
 enable_install_tool() {
     e_arrow Enabling install tool
     mkdir -p /build/public/typo3conf

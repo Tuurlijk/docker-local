@@ -154,6 +154,7 @@ services:
     volumes:
       - ./:/configuration
       - ./php/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
+      - $PWD/.docker/db/mysql:/var/lib/mysql
       - $PWD:/var/www/html
       - ${HOME:-~}/.composer:/home/dev/.composer
       - ${HOME:-~}/.composer:/home/docker/.composer
@@ -228,9 +229,9 @@ services:
 #    cap_add:
 #       - "SYS_ADMIN"
 
-volumes:
-  dbRamdisk:
-    driver_opts:
-      type: tmpfs
-      device: tmpfs
-      o: "noatime,noexec,nodiratime,nodev,nosuid,async,mode=0770,uid=${UID:-1000},gid=${GID:-1000}"
+#volumes:
+#  dbRamdisk:
+#    driver_opts:
+#      type: tmpfs
+#      device: tmpfs
+#      o: "noatime,noexec,nodiratime,nodev,nosuid,async,mode=0770,uid=${UID:-1000},gid=${GID:-1000}"

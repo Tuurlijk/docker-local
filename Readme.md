@@ -181,6 +181,12 @@ Username for htaccess based authentication of the exposed website
 #### NGROK_PASSWORD
 Password for htaccess based authentication of the exposed website
 
+### PHP versions
+There are different PHP versions available. The default is PHP 7.4
+
+#### PHP_VERSION
+One of: `5.6`, `7.1`, `7.2`, `7.3`, `7.4`, `8.0`, `8.1`
+
 ### Blackfire credentials
 Use blackfire to profile your PHP code. Get the credentials from https://blackfire.io/my/settings/credentials
 
@@ -210,7 +216,7 @@ By default the **[dvdarias/docker-hoster](https://hub.docker.com/r/dvdarias/dock
 If you opt for that, you can set **HOSTMAP_IMAGE** to **bash**.
 
 Example resolvable config:
-```
+```yaml
 version: "3"
 services:
   resolvable:
@@ -247,7 +253,7 @@ The database can run in a tmpfs volume. If you want to save it, please use `./.d
 
 If you want to run the db in ram uncomment the **dbRamdisk** line:
 
-```bash
+```yaml
   db:
     image: mariadb
     container_name: ${COMPOSE_PROJECT_NAME}_db
@@ -260,6 +266,17 @@ If you want to run the db in ram uncomment the **dbRamdisk** line:
       - ./db:/docker-entrypoint-initdb.d/:ro
     depends_on:
       - before_script
+```
+
+And also uncomment the dbRamdisk volume lines at the end:
+
+```yaml
+#volumes:
+#  dbRamdisk:
+#    driver_opts:
+#      type: tmpfs
+#      device: tmpfs
+#      o: "noatime,noexec,nodiratime,nodev,nosuid,async,mode=0770,uid=${UID:-1000},gid=${GID:-1000}"
 ```
 
 ## Ephemeral
