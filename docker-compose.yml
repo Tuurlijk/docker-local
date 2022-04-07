@@ -175,7 +175,7 @@ services:
       - ${HOME:-~}/.composer:/home/dev/.composer
       - ${HOME:-~}/.composer:/home/docker/.composer
     depends_on:
-      - after
+      - after_script
     entrypoint: /configuration/template/${TEMPLATE:-default}/after_super.sh
 
   mailhog:
