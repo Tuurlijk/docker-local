@@ -20,7 +20,7 @@ Pull requests are welcome ;-)
 ```bash
 mkdir project && cd project
 git clone https://github.com/Tuurlijk/docker-local.git .docker
-cp .docker/.env .
+ln -s .docker/.env .env
 ```
 
 ### Make sure the containers can read and write your files
