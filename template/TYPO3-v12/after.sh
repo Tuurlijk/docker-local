@@ -10,10 +10,10 @@ cd /var/www/html || exit
 
 composer_install
 
-install_typo3 v10
-
-e_arrow Updating database
-./bin/typo3cms database:updateschema table.add,table.change,field.add,field.change
+#install_typo3 v12
+#
+#e_arrow Updating database
+#./bin/typo3cms database:updateschema table.add,table.change,field.add,field.change
 
 #e_arrow Setting up autologin
 #./bin/typo3cms extension:setupactive autologin

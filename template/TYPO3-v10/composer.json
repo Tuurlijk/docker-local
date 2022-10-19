@@ -41,10 +41,6 @@
     }
   },
   "repositories": {
-    "local": {
-      "type": "path",
-      "url": "LocalPackages/*"
-    },
     "typo3": {
       "type": "composer",
       "url": "https://composer.typo3.org"
