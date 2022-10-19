@@ -38,6 +38,7 @@ services:
       - php
       - php_blackfire
       - php_xdebug
+      - mailhog
 
   db:
     image: mariadb:${DATABASE_VERSION:-10.2}
