@@ -40,14 +40,14 @@ services:
       - php_xdebug
 
   db:
-    image: mariadb
+    image: mariadb:${DATABASE_VERSION:-10.2}
     hostname: ${COMPOSE_PROJECT_NAME}_db
     container_name: ${COMPOSE_PROJECT_NAME}_db
     env_file:
       - $PWD/.env
     volumes:
       #- dbRamdisk:/var/lib/mysql
-      - $PWD/.docker/db/mysql:/var/lib/mysql
+      - dbData:/var/lib/mysql
       - ./db/mariadb.cnf:/etc/mysql/conf.d/zz-my-mariadb.cnf:ro
       - ./db/mariadb.cnf:/etc/mysql/mysql.d/zz-my-mariadb.cnf:ro
       - ./db/import:/docker-entrypoint-initdb.d/:ro
@@ -245,7 +245,9 @@ services:
 #    cap_add:
 #       - "SYS_ADMIN"
 
-#volumes:
+volumes:
+  dbData:
+    driver: local
 #  dbRamdisk:
 #    driver_opts:
 #      type: tmpfs

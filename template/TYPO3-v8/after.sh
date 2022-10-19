@@ -10,7 +10,7 @@ cd /var/www/html || exit
 
 composer_install
 
-install_typo3
+install_typo3 v8
 
 e_arrow Setting up autologin
 ./bin/typo3cms extension:setupactive autologin

@@ -10,7 +10,7 @@ cd /var/www/html || exit
 
 composer_install
 
-install_typo3
+install_typo3 v9
 
 e_arrow Updating database
 ./bin/typo3cms database:updateschema table.add,table.change,field.add,field.change

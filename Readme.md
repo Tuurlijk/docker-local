@@ -121,7 +121,7 @@ You can regenerate your own custom authority and certificates using `.docker/bin
 ## Configuration
 Each container may use configuration files from the `.docker` folder.
 
-The environment file `/.env` defines some important variables:
+The environment file `/.env` defines some important variables. Check yout platform documentation so you know what version of PHP and Mariadb you need. For TYPO3 you can find the requirements here: https://get.typo3.org/version
 
 ### COMPOSE_PROJECT_NAME
 The project name is used in the domain names of the http containers:
@@ -133,22 +133,17 @@ The project name is used in the domain names of the http containers:
 
 All environments are started within their own subnet. They can reach each other by the *service name* or *container_name* specified in `.docker/docker-compose.yml`. So the `php` machine can reference the `redis` machine by using hostname **redis** or **container_name: ${COMPOSE_PROJECT_NAME}_web**. So if your project name is **babel** the `php` machine can reach the `redis` machine by using **babel_redis** as hostname.
 
-### TEMPLATE ###
-Use a template to get an installation up quickly. Each template has a `before.sh` file to set up the environment before any machine starts and an `after.sh` file to set up the environment after the machines have started. This may fix permissions and copy over files like composer.json and AdditionalConfiguration.php.
+### PHP versions
+There are different PHP versions available. The default is PHP 7.4
 
-Please keep in mind that you may need to tweak the MariaDb and PHP versions for the older TYPO3 versions.
+#### PHP_VERSION
+One of: `5.6`, `7.1`, `7.2`, `7.3`, `7.4`, `8.0`, `8.1`
 
-Choose from:
-* empty
-* default
-* TYPO3-v7
-* TYPO3-v8
-* TYPO3-v9
-* TYPO3-v10
-* TYPO3-v11
-* Neos-v4
+### Database version
+[One of the mariadb versions](https://hub.docker.com/_/mariadb). The default is 10.2
 
-Add your own templates in .docker/template/
+#### DATABASE_VERSION
+One of teh tags on https://hub.docker.com/_/mariadb
 
 ### mysql database credentials
 
@@ -180,12 +175,6 @@ Username for htaccess based authentication of the exposed website
 
 #### NGROK_PASSWORD
 Password for htaccess based authentication of the exposed website
-
-### PHP versions
-There are different PHP versions available. The default is PHP 7.4
-
-#### PHP_VERSION
-One of: `5.6`, `7.1`, `7.2`, `7.3`, `7.4`, `8.0`, `8.1`
 
 ### Blackfire credentials
 Use blackfire to profile your PHP code. Get the credentials from https://blackfire.io/my/settings/credentials
@@ -226,6 +215,23 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - /etc/resolv.conf:/tmp/resolv.conf
 ```
+
+### TEMPLATE ###
+Use a template to get an installation up quickly. Each template has a `before.sh` file to set up the environment before any machine starts and an `after.sh` file to set up the environment after the machines have started. This may fix permissions and copy over files like composer.json and AdditionalConfiguration.php.
+
+Please keep in mind that you may need to tweak the MariaDb and PHP versions for the older TYPO3 versions.
+
+Choose from:
+* empty
+* default
+* TYPO3-v7
+* TYPO3-v8
+* TYPO3-v9
+* TYPO3-v10
+* TYPO3-v11
+* Neos-v4
+
+Add your own templates in .docker/template/
 
 ## Scripts
 There are a few helper scripts in `.docker/bin`. Most of these are meant to be executed from the project root (where the .env file is stored).

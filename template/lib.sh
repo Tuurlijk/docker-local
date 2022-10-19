@@ -68,7 +68,7 @@ install_typo3() {
             --database-name="${MYSQL_DATABASE}" \
             --admin-user-name="admin" \
             --admin-password="${MYSQL_PASSWORD}" \
-            --site-name="TYPO3 v9" \
+            --site-name="TYPO3 $@" \
             --site-setup-type="site" \
             --use-existing-database
     fi
