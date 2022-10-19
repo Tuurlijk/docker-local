@@ -14,12 +14,6 @@ services:
       - ./web/nginx.default.conf:/etc/nginx/conf.d/default.conf:ro
       - ./web/ssl:/etc/nginx/ssl:ro
       - $PWD:/var/www/html:ro
-      # Apache settings
-#      - ./web/httpd.2.4.conf:/usr/local/apache2/conf/httpd.conf:ro
-#      - ./web/httpd.2.4.vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf:ro
-#      - ./web/ssl/private.rsa:/usr/local/apache2/conf/private.rsa:ro
-#      - ./web/ssl/public.crt:/usr/local/apache2/conf/public.crt:ro
-#      - ./web/ca/cacert.crt:/usr/local/apache2/conf/cacert.crt:ro
     networks:
       default:
         aliases:
@@ -47,7 +41,6 @@ services:
     env_file:
       - $PWD/.env
     volumes:
-      #- dbRamdisk:/var/lib/mysql
       - dbData:/var/lib/mysql
       - ./db/mariadb.cnf:/etc/mysql/conf.d/zz-my-mariadb.cnf:ro
       - ./db/mariadb.cnf:/etc/mysql/mysql.d/zz-my-mariadb.cnf:ro
@@ -163,40 +156,11 @@ services:
       - web
     entrypoint: /configuration/template/${TEMPLATE:-default}/after.sh
 
-  after_script_super:
-    image: tuurlijk/php-fpm:${PHP_VERSION:-7.4}
-    container_name: ${COMPOSE_PROJECT_NAME}_after_script_super
-    env_file:
-      - $PWD/.env
-    volumes:
-      - ./:/configuration
-      - ./php/php.ini:/usr/local/etc/php/conf.d/zzz-custom.ini:ro
-      - $PWD/.docker/db/mysql:/var/lib/mysql
-      - $PWD:/var/www/html
-      - ${HOME:-~}/.composer:/home/dev/.composer
-      - ${HOME:-~}/.composer:/home/docker/.composer
-    depends_on:
-      - after_script
-    entrypoint: /configuration/template/${TEMPLATE:-default}/after_super.sh
-
   mailhog:
     image: mailhog/mailhog
     container_name: ${COMPOSE_PROJECT_NAME}_mailhog
     depends_on:
       - before_script
-
-#  ngrok:
-#    image: wernight/ngrok
-#    container_name: ${COMPOSE_PROJECT_NAME}_ngrok
-#    environment:
-#      - NGROK_AUTH=${NGROK_AUTH:-nan}
-#      - NGROK_PORT=${NGROK_PORT:-nan}
-#      - NGROK_REGION=${NGROK_REGION:-eu}
-#      - NGROK_BINDTLS=${NGROK_BINDTLS:-true}
-#      - NGROK_USERNAME=${NGROK_USERNAME:-nan}
-#      - NGROK_PASSWORD=${NGROK_PASSWORD:-}
-#    depends_on:
-#      - web
 
   hosts:
     image: ${HOSTS_IMAGE:-dvdarias/docker-hoster}
@@ -230,27 +194,6 @@ services:
       - ./global/passwd-:/etc/passwd-
     entrypoint: /configuration/before/before.sh
 
-#  redis:
-#    image: redis
-#    container_name: ${COMPOSE_PROJECT_NAME}_redis
-
-#  chrome:
-#    image: robcherry/docker-chromedriver
-#    hostname: ${COMPOSE_PROJECT_NAME}_chrome
-#    container_name: ${COMPOSE_PROJECT_NAME}_chrome
-#    environment:
-#       CHROMEDRIVER_WHITELISTED_IPS: ""
-#       CHROMEDRIVER_PORT: "9515"
-#    ports:
-#       - 9515:9515
-#    cap_add:
-#       - "SYS_ADMIN"
-
 volumes:
   dbData:
     driver: local
-#  dbRamdisk:
-#    driver_opts:
-#      type: tmpfs
-#      device: tmpfs
-#      o: "noatime,noexec,nodiratime,nodev,nosuid,async,mode=0770,uid=${UID:-1000},gid=${GID:-1000}"

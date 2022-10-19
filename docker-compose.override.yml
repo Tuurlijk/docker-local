@@ -1,1 +1,48 @@
 version: "3"
+
+#services:
+
+#  web:
+#    volumes:
+#      # Apache settings
+#      - ./web/httpd.2.4.conf:/usr/local/apache2/conf/httpd.conf:ro
+#      - ./web/httpd.2.4.vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf:ro
+#      - ./web/ssl/private.rsa:/usr/local/apache2/conf/private.rsa:ro
+#      - ./web/ssl/public.crt:/usr/local/apache2/conf/public.crt:ro
+#      - ./web/ca/cacert.crt:/usr/local/apache2/conf/cacert.crt:ro
+
+#  chrome:
+#    image: robcherry/docker-chromedriver
+#    hostname: ${COMPOSE_PROJECT_NAME}_chrome
+#    container_name: ${COMPOSE_PROJECT_NAME}_chrome
+#    environment:
+#       CHROMEDRIVER_WHITELISTED_IPS: ""
+#       CHROMEDRIVER_PORT: "9515"
+#    expose:
+#       - 9515
+#    cap_add:
+#       - "SYS_ADMIN"
+
+#  redis:
+#    image: redis
+#    container_name: ${COMPOSE_PROJECT_NAME}_redis
+
+#  ngrok:
+#    image: wernight/ngrok
+#    container_name: ${COMPOSE_PROJECT_NAME}_ngrok
+#    environment:
+#      - NGROK_AUTH=${NGROK_AUTH:-nan}
+#      - NGROK_PORT=${NGROK_PORT:-nan}
+#      - NGROK_REGION=${NGROK_REGION:-eu}
+#      - NGROK_BINDTLS=${NGROK_BINDTLS:-true}
+#      - NGROK_USERNAME=${NGROK_USERNAME:-nan}
+#      - NGROK_PASSWORD=${NGROK_PASSWORD:-}
+#    depends_on:
+#      - web
+
+#volumes:
+#  dbData:
+#    driver_opts:
+#      type: tmpfs
+#      device: tmpfs
+#      o: "noatime,noexec,nodiratime,nodev,nosuid,async,mode=0770,uid=${UID:-1000},gid=${GID:-1000}"

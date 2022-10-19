@@ -257,28 +257,11 @@ The database in the container is already pretty fast if you have a ssd, But if y
 
 The database can run in a tmpfs volume. If you want to save it, please use `./.docker/bin/dump.sh`. This will create a gzipped dump in `.docker/db/dump`.
 
-If you want to run the db in ram uncomment the **dbRamdisk** line:
-
-```yaml
-  db:
-    image: mariadb
-    container_name: ${COMPOSE_PROJECT_NAME}_db
-    env_file:
-      - $PWD/.env
-    volumes:
-      #- dbRamdisk:/var/lib/mysql
-      - ./db/mariadb.cnf:/etc/mysql/mariadb.cnf:ro
-      - ./db/mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf:ro
-      - ./db:/docker-entrypoint-initdb.d/:ro
-    depends_on:
-      - before_script
-```
-
-And also uncomment the dbRamdisk volume lines at the end:
+If you want to run the db in ram, uncomment the dbData volume lines at the end of docker-compose.override.yml:
 
 ```yaml
 #volumes:
-#  dbRamdisk:
+#  dbData:
 #    driver_opts:
 #      type: tmpfs
 #      device: tmpfs
