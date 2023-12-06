@@ -16,4 +16,4 @@ RUN sed -i "s/user  nginx/user  docker/g" /etc/nginx/nginx.conf
 # Set the correct PHP backend
 COPY nginx.default.conf.tmpl /etc/nginx/conf.d/default.conf
 RUN sed -i "s/\${COMPOSE_PROJECT_NAME}/${COMPOSE_PROJECT_NAME}/g" /etc/nginx/conf.d/default.conf
-RUN sed -i "s/\${TYPO3_CONTEXT}/${TYPO3_CONTEXT}/g" /etc/nginx/conf.d/default.conf
+RUN sed -i "s|\${TYPO3_CONTEXT}|${TYPO3_CONTEXT}|g" /etc/nginx/conf.d/default.conf
