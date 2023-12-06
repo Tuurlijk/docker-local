@@ -1,82 +1,29 @@
-Certificate:
-    Data:
-        Version: 3 (0x2)
-        Serial Number: 2 (0x2)
-        Signature Algorithm: sha256WithRSAEncryption
-        Issuer: CN=Michiel Roos Root Certificate Authority, ST=NB, C=NL/emailAddress=michiel@michielroos.com, O=Michiel Roos, OU=Development
-        Validity
-            Not Before: Aug  7 18:13:35 2019 GMT
-            Not After : Aug  5 18:13:35 2024 GMT
-        Subject: CN=localhost, ST=NB, C=NL/emailAddress=michiel@michielroos.com, O=Michiel Roos, OU=Development
-        Subject Public Key Info:
-            Public Key Algorithm: rsaEncryption
-                RSA Public-Key: (2048 bit)
-                Modulus:
-                    00:a8:dc:b6:00:28:e8:2e:cd:3b:5f:f7:28:f5:eb:
-                    79:d0:7a:e1:85:f5:40:7a:f8:ab:61:c7:24:91:a6:
-                    8f:4f:29:1d:dc:f1:78:b2:d1:2b:aa:16:d3:6d:95:
-                    a2:9f:48:9f:96:61:8e:84:04:19:ad:de:a4:c1:e9:
-                    49:58:32:e6:97:c7:54:20:77:1c:6f:5a:b5:fa:58:
-                    bd:6b:38:53:da:d0:5f:52:bc:7d:94:4c:34:7e:e4:
-                    b9:6a:7b:56:8c:8b:62:b1:c8:50:17:2d:fe:b9:b7:
-                    1d:70:4b:85:1a:4c:57:cb:e7:37:f0:ef:b0:c2:55:
-                    68:20:45:76:11:2c:8a:b8:94:f1:08:c6:9d:4f:d4:
-                    11:01:87:70:a1:7f:1a:74:6e:05:f1:1c:98:11:2c:
-                    7e:f8:52:5d:ae:d7:d8:57:f7:7f:58:28:34:4c:c3:
-                    3c:0c:b6:33:01:ff:62:3e:63:05:24:4a:f6:a0:ed:
-                    85:dd:82:75:18:cd:28:04:4a:24:e0:5a:82:5b:8e:
-                    5c:cc:59:86:63:3e:9a:7d:ba:60:85:aa:32:b9:9e:
-                    26:18:b1:ed:9c:ef:19:f4:88:2d:5b:fb:ce:6a:51:
-                    09:3d:00:a9:df:a1:ab:71:36:73:80:f5:08:30:cf:
-                    45:e2:df:ee:59:96:85:11:df:05:95:c6:47:76:a4:
-                    a0:7f
-                Exponent: 65537 (0x10001)
-        X509v3 extensions:
-            X509v3 Basic Constraints: 
-                CA:FALSE
-            X509v3 Key Usage: 
-                Digital Signature, Non Repudiation, Key Encipherment
-            X509v3 Subject Alternative Name: 
-                DNS:dev.local, DNS:*.dev.local, DNS:*.xdebug.local, DNS:*.xdbg.local, DNS:*.blackfire.local, DNS:*.bf.local, DNS:*.black.local, DNS:*.fire.local, DNS:*.debug.local, DNS:*.mail.local, DNS:*.mailhog.local, DNS:*.logs.local
-    Signature Algorithm: sha256WithRSAEncryption
-         2a:10:7a:02:cf:37:db:fe:ee:4a:4f:e2:16:b1:69:23:eb:e2:
-         f8:88:40:af:38:92:db:00:0e:9f:af:6e:7c:f5:3e:2e:25:ad:
-         8e:0a:f7:6c:87:6e:7d:3d:66:32:07:0c:e5:81:d0:2c:23:2e:
-         9e:29:96:36:dd:8f:7a:25:55:9a:d0:32:34:03:59:83:ef:cb:
-         03:f3:dd:10:cd:76:4d:56:e7:00:b4:23:63:91:d0:c8:b2:a7:
-         da:0b:e6:0d:ca:09:a8:da:a8:1d:9a:ad:52:1b:2d:d2:8b:ce:
-         f8:fd:96:90:e0:14:b4:74:85:81:62:70:97:52:74:cb:81:12:
-         70:16:86:d4:76:1a:b2:48:e4:89:76:d3:0d:0c:c0:0f:bd:c9:
-         64:79:ae:ef:17:7a:bc:7f:40:15:f1:33:60:67:f8:82:90:82:
-         9f:47:87:26:37:f4:9b:db:69:cf:c2:ef:05:05:38:91:fc:12:
-         73:90:eb:a5:af:bc:6c:91:89:a4:df:9a:8b:77:fd:7f:ed:5f:
-         42:c5:eb:ab:08:71:b5:e7:77:0c:a6:b9:33:6f:97:45:43:41:
-         9d:dd:c7:13:7d:cf:ef:a9:da:46:dc:20:5a:b2:23:09:22:83:
-         df:ba:a2:9d:08:00:88:22:4a:9f:99:32:27:28:48:d8:21:5a:
-         1c:01:1b:ff
 -----BEGIN CERTIFICATE-----
-MIIEeTCCA2GgAwIBAgIBAjANBgkqhkiG9w0BAQsFADCBoTEwMC4GA1UEAwwnTWlj
-aGllbCBSb29zIFJvb3QgQ2VydGlmaWNhdGUgQXV0aG9yaXR5MQswCQYDVQQIDAJO
-QjELMAkGA1UEBhMCTkwxJjAkBgkqhkiG9w0BCQEWF21pY2hpZWxAbWljaGllbHJv
-b3MuY29tMRUwEwYDVQQKDAxNaWNoaWVsIFJvb3MxFDASBgNVBAsMC0RldmVsb3Bt
-ZW50MB4XDTE5MDgwNzE4MTMzNVoXDTI0MDgwNTE4MTMzNVowgYMxEjAQBgNVBAMM
-CWxvY2FsaG9zdDELMAkGA1UECAwCTkIxCzAJBgNVBAYTAk5MMSYwJAYJKoZIhvcN
-AQkBFhdtaWNoaWVsQG1pY2hpZWxyb29zLmNvbTEVMBMGA1UECgwMTWljaGllbCBS
-b29zMRQwEgYDVQQLDAtEZXZlbG9wbWVudDCCASIwDQYJKoZIhvcNAQEBBQADggEP
-ADCCAQoCggEBAKjctgAo6C7NO1/3KPXredB64YX1QHr4q2HHJJGmj08pHdzxeLLR
-K6oW022Vop9In5ZhjoQEGa3epMHpSVgy5pfHVCB3HG9atfpYvWs4U9rQX1K8fZRM
-NH7kuWp7VoyLYrHIUBct/rm3HXBLhRpMV8vnN/DvsMJVaCBFdhEsiriU8QjGnU/U
-EQGHcKF/GnRuBfEcmBEsfvhSXa7X2Ff3f1goNEzDPAy2MwH/Yj5jBSRK9qDthd2C
-dRjNKARKJOBagluOXMxZhmM+mn26YIWqMrmeJhix7ZzvGfSILVv7zmpRCT0Aqd+h
-q3E2c4D1CDDPReLf7lmWhRHfBZXGR3akoH8CAwEAAaOB1zCB1DAJBgNVHRMEAjAA
-MAsGA1UdDwQEAwIF4DCBuQYDVR0RBIGxMIGugglkZXYubG9jYWyCCyouZGV2Lmxv
-Y2Fsgg4qLnhkZWJ1Zy5sb2NhbIIMKi54ZGJnLmxvY2FsghEqLmJsYWNrZmlyZS5s
-b2NhbIIKKi5iZi5sb2NhbIINKi5ibGFjay5sb2NhbIIMKi5maXJlLmxvY2Fsgg0q
-LmRlYnVnLmxvY2FsggwqLm1haWwubG9jYWyCDyoubWFpbGhvZy5sb2NhbIIMKi5s
-b2dzLmxvY2FsMA0GCSqGSIb3DQEBCwUAA4IBAQAqEHoCzzfb/u5KT+IWsWkj6+L4
-iECvOJLbAA6fr2589T4uJa2OCvdsh259PWYyBwzlgdAsIy6eKZY23Y96JVWa0DI0
-A1mD78sD890QzXZNVucAtCNjkdDIsqfaC+YNygmo2qgdmq1SGy3Si874/ZaQ4BS0
-dIWBYnCXUnTLgRJwFobUdhqySOSJdtMNDMAPvclkea7vF3q8f0AV8TNgZ/iCkIKf
-R4cmN/Sb22nPwu8FBTiR/BJzkOulr7xskYmk35qLd/1/7V9CxeurCHG153cMprkz
-b5dFQ0Gd3ccTfc/vqdpG3CBasiMJIoPfuqKdCACIIkqfmTInKEjYIVocARv/
+MIIE7DCCA1SgAwIBAgIRAPcUBRz1qaNkCPubndnqAs4wDQYJKoZIhvcNAQELBQAw
+eTEeMBwGA1UEChMVbWtjZXJ0IGRldmVsb3BtZW50IENBMScwJQYDVQQLDB5taWNo
+aWVsQHRoaW5rZXIgKE1pY2hpZWwgUm9vcykxLjAsBgNVBAMMJW1rY2VydCBtaWNo
+aWVsQHRoaW5rZXIgKE1pY2hpZWwgUm9vcykwHhcNMTkwNjAxMDAwMDAwWhcNMzMx
+MjA2MDc0MTI5WjBSMScwJQYDVQQKEx5ta2NlcnQgZGV2ZWxvcG1lbnQgY2VydGlm
+aWNhdGUxJzAlBgNVBAsMHm1pY2hpZWxAdGhpbmtlciAoTWljaGllbCBSb29zKTCC
+ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMMZy+rywPGlbHPZtZm1m3qA
+s1NnNiNA6C2jzEG62f4ed9xlJudgMaqZ9kKNA6N5kc18RA827vayE83TmqBfk48X
+o3DGtcj4kVXoHXwtZlVjn73utvGhljMI0k99yf2XDBBEZFVk0ou9ohSJmfly0fjP
+mhXQ3cb2rUYFDFN33PVRfRhykXqK7XzGYE/o/Zlc2kX/y5QOzud3G569b0kj835z
+FshBONt/EHun6hq9HharPneNKmfmD5sLeyYBD44LDTwh2/GghYoHfKaqRRcWJIXS
+LVuxCYFaWcprMR33vl3i1TVXocgDF+E8P7uAO4zAZIyONpkC4ChhFkd1MLruIqEC
+AwEAAaOCARQwggEQMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcD
+ATAMBgNVHRMBAf8EAjAAMB8GA1UdIwQYMBaAFOz0aG0zdhcTh7CIHrUtpwNR57VT
+MIG5BgNVHREEgbEwga6CCWRldi5sb2NhbIILKi5kZXYubG9jYWyCDioueGRlYnVn
+LmxvY2FsggwqLnhkYmcubG9jYWyCESouYmxhY2tmaXJlLmxvY2FsggoqLmJmLmxv
+Y2Fsgg0qLmJsYWNrLmxvY2FsggwqLmZpcmUubG9jYWyCDSouZGVidWcubG9jYWyC
+DCoubWFpbC5sb2NhbIIPKi5tYWlsaG9nLmxvY2FsggwqLmxvZ3MubG9jYWwwDQYJ
+KoZIhvcNAQELBQADggGBAMnDwj2SeBx5Er8UOFjJpKPRqPmLICo27wGu/TQUhrn2
+pEg1ma3yR298GtS6Grf4VAA3/8INVfaT54lE/PTuNuKQDTdzz0MIGil9OpG+T8wV
+IIiTMGG7fLDp7v51s/0HOBZj30cK8zpjU2UyWl2ROG1qu4N3EkqeVt+quajNFnUH
+SYTta1xui1jXSIlgEWyQvjzqIeVYlbWxpM1SwcbznFRiO9Yep407/LXxAf3SYex5
+CmWQBv2xq2t0RQk81fo4P5oXoYsN3dpC8xyQR05+LwY6SV7fcEuqMdn/dIbqNz8u
+DYZCvp0wKzqdppnoCZqgDK2AoB36KqZSJ/+QBu4l9orRKPNmdgZEcAxZYtTyzDkg
+f5QEgwhn3ZsaJA+hGjiVeyK9FDobsL6GEFY94ldQU+h5v1ijha336czJrO0ZULkW
+Qf2qs+Zn6wfpwnBzziN7F26IWEfdWePBZmrefQaNLcBzYeU3UTvVxjomNfoMv9sG
+qxZ0IpZw0WjpdMv92rmAEA==
 -----END CERTIFICATE-----

@@ -50,15 +50,21 @@ alias dc="docker-compose -f .docker/docker-compose.yml"
 
 ### The service user
 
-The services in the `web` and `php*` containers run under user **dev**. If you want to login to the php container as that user you can do:
+The services in the `web` and `php*` containers run under user **docker**. If you want to log in to the php container as that user you can do:
 
 ```bash
-dev exec -u dev php /bin/bash
+dev exec -u docker php /bin/bash
+
+# If you are logging is as your host user, you can do:
+dev exec -u $UID php /bin/bash
+
+# Or even leave out the user part all together:
+dev exec php /bin/bash
 ```
 
-You can create an alias so you don't have to type the user out all the time.
+You can create an alias, so you don't have to type the user out all the time.
 ```bash
-alias de="dev exec -u dev"
+alias de="dev -u $UID exec"
 ```
 
 ### Aliases
@@ -81,17 +87,16 @@ alias on=up
 alias off=down
 alias re='f(){ dev rm -fsv $@ && dev build $@ && dev up -d $@ && dev logs -f before_script after_script; unset -f f; }; f'
 alias offon=re
-alias ds="dev exec -u dev php bash -l"
-alias de="dev exec -u dev"
+alias ds="dev exec php bash -l"
+alias de="dev exec"
 alias cf='e_header "Running typo3cms cache:flush"; ds -c "./public/bin/typo3cms cache:flush"; e_success Done'
 alias ct='e_header "Clearing ./public/typo3temp/*"; ds -c "echo removing \`find ./public/typo3temp/ -type f | wc -l\` files; rm -rf ./public/typo3temp/*"; e_success Done'
 ```
 
 ## SSL support
-Import `.docker/web/ca/cacert.crt` into your browser. Allow it authenticate websites.
-This was generated using: https://gist.github.com/jchandra74/36d5f8d0e11960dd8f80260801109ab0
+To generate the certificates and make the system trust them, we use [the fantastic *mkcert* tool](https://github.com/FiloSottile/mkcert).
 
-The provided certificates have wildcards for:
+The provided certificate has wildcards for:
 * *.dev.local
 * *.blackfire.local
 * *.black.local
@@ -103,20 +108,11 @@ The provided certificates have wildcards for:
 * *.mail.local
 * *.logs.local
 
-This makes is possible to visit `prefix.dev.local` securely. If you want to use the blackfire php backend, you can visit `prefix.blackfire.local` or `prefix.bf.local`.
+The certificate was generated from the `web/ssl` folder using:
 
-To make the certificates available for the whole OS, do something along the lines of:
 ```bash
-sudo cp .docker/web/ca/cacert.crt /usr/local/share/ca-certificates/docker-local.crt
-sudo update-ca-certificates
+mkcert -cert-file public.crt -key-file private.rsa "dev.local" "*.dev.local" "*.xdebug.local" "*.xdbg.local" "*.blackfire.local" "*.bf.local" "*.black.local" "*.fire.local" "*.debug.local" "*.mail.local" "*.mailhog.local" "*.logs.local"
 ```
-Or, if you are on Arch:
-```bash
-sudo cp .docker/web/ca/cacert.crt etc/ca-certificates/trust-source/anchors/docker-local.crt
-sudo trust extract-compat
-```
-
-You can regenerate your own custom authority and certificates using `.docker/bin/generateCertificate.sh`. The configuration files are in `.docker/web/sslConfig`. If you want to add a wildcard domain to the SAN list, run `.docker/bin/reGenerateCertificate.sh`.
 
 ## Configuration
 Each container may use configuration files from the `.docker` folder.
