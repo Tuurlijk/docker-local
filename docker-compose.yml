@@ -2,7 +2,7 @@ version: "3"
 services:
   web:
     build:
-      context: ./.docker/web
+      context: ./web
       args:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
