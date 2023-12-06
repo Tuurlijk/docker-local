@@ -12,7 +12,6 @@ services:
     hostname: ${COMPOSE_PROJECT_NAME}.dev.local
     volumes:
       - ${HOSTS_FILE:-/etc/hosts}:/etc/hosts:ro
-      - ./web/nginx.default.conf:/etc/nginx/conf.d/default.conf:ro
       - ./web/ssl:/etc/nginx/ssl:ro
       - $PWD:/var/www/html:ro
     networks:
