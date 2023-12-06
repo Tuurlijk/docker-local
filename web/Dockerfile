@@ -3,6 +3,8 @@ FROM fholzer/nginx-brotli
 # 1000 is the default value if nothing is passed in though build args in docker-compose.yml
 ARG UID=1000
 ARG GID=1000
+ARG COMPOSE_PROJECT_NAME
+ARG TYPO3_CONTEXT
 
 # Create user and group for given uid and gid
 RUN if ! getent group docker; then addgroup -g ${GID} docker; \
