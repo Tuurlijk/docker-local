@@ -35,7 +35,7 @@ server {
 
     location / {
         if ($backendKey = mail) {
-            proxy_pass http://${COMPOSE_PROJECT_NAME}_mailhog:8025;
+            proxy_pass http://${COMPOSE_PROJECT_NAME}_mail:8025;
         }
 
         if ($backendKey = logs) {

@@ -32,7 +32,7 @@ services:
       - php
       - php_blackfire
       - php_xdebug
-      - mailhog
+      - mail
 
   db:
     image: mariadb:${DATABASE_VERSION:-11.2}
@@ -144,9 +144,11 @@ services:
       - web
     entrypoint: /configuration/template/${TEMPLATE:-default}/after.sh
 
-  mailhog:
-    image: mailhog/mailhog
-    container_name: ${COMPOSE_PROJECT_NAME}_mailhog
+  mail:
+    image: axllent/mailpit
+    container_name: ${COMPOSE_PROJECT_NAME}_mail
+    environment:
+      - TZ=Europe/Amsterdam
     depends_on:
       - before_script
 

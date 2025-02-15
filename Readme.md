@@ -3,7 +3,7 @@ This development environment uses as much default docker containers as possible.
 
 * Default [nginx](https://hub.docker.com/r/fholzer/nginx-brotli) container - Nginx container with brotli support
 * Default [mariadb](https://hub.docker.com/_/mariadb) container - serves the database
-* Default [mailhog](https://hub.docker.com/r/mailhog/mailhog) container - catches all outgoing mail and displays it
+* Default [mailpit](https://hub.docker.com/r/axllent/mailpit) container - catches all outgoing mail and displays it
 * Default [docker-hoster](https://hub.docker.com/r/dvdarias/docker-hoster) container - makes the containers accessible by name
 * Default [busybox](https://hub.docker.com/_/busybox) container - used for initialization
 * Default [blackfire](https://hub.docker.com/r/blackfire/blackfire) container - used for profiling your site
@@ -111,7 +111,7 @@ The provided certificate has wildcards for:
 The certificate was generated from the `web/ssl` folder using:
 
 ```bash
-mkcert -cert-file public.crt -key-file private.rsa "dev.local" "*.dev.local" "*.xdebug.local" "*.xdbg.local" "*.blackfire.local" "*.bf.local" "*.black.local" "*.fire.local" "*.debug.local" "*.mail.local" "*.mailhog.local" "*.logs.local"
+mkcert -cert-file public.crt -key-file private.rsa "dev.local" "*.dev.local" "*.xdebug.local" "*.xdbg.local" "*.blackfire.local" "*.bf.local" "*.black.local" "*.fire.local" "*.debug.local" "*.mail.local" "*.logs.local"
 ```
 
 ## Configuration
@@ -124,7 +124,7 @@ The project name is used in the domain names of the http containers:
 * [prefix.dev.local](https://prefix.dev.local) - default PHP
 * [prefix.xdebug.local](https://prefix.xdebug.local) / [prefix.debug.local](https://prefix.debug.local) / [prefix.xdbg.local](https://prefix.xdbg.local) - Xdebug enabled PHP
 * [prefix.blackfire.local](https://prefix.blackfire.local) / [prefix.bf.local](https://prefix.bf.local) / [prefix.fire.local](https://prefix.fire.local) / [prefix.black.local](https://prefix.black.local) - Blackfire enabled PHP
-* [prefix.mail.local](https://prefix.mail.local) - Mailhog
+* [prefix.mail.local](https://prefix.mail.local) - Mailpit
 * [prefix.logs.local](https://prefix.logs.local) - Dozzle
 
 All environments are started within their own subnet. They can reach each other by the *service name* or *container_name* specified in `.docker/docker-compose.yml`. So the `php` machine can reference the `redis` machine by using hostname **redis** or **container_name: ${COMPOSE_PROJECT_NAME}_web**. So if your project name is **babel** the `php` machine can reach the `redis` machine by using **babel_redis** as hostname.
